@@ -14,5 +14,7 @@ class Program
         // Return stylized name
         Console.WriteLine();        // Spacer line
         Console.WriteLine($"My name is {lname}, {fname} {lname}.");
+
+        // Apparently I committed using the wrong account initally, whoops! This comment line is to verify that I switched my Git account correctly so changes will appear under the correct account.
     }
 }
