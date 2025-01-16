@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 public class Resume
 {
     public string _name;

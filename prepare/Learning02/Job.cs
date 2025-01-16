@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 public class Job
 {
     public string _company;
