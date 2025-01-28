@@ -1,0 +1,30 @@
+/--------- KEY ----------\
+|  CLASSES: +            |
+|  ATTRIBUTES: >         |
+|  MODULES: !            |
+|  CLASS HAS CLASS: HAS  |
+\------------------------/
+
+Things
++ Program
+    HAS Journal
+    > contentUpdated, bool (used for Verify Option methods)
+    ! Main
+    ! AddEntry
+    ! Load Journal (Verify Option)
+    ! Save Journal
+    ! Quit (Verify Option)
++ Journal
+    HAS Entries (List of Entry)
+    ! Load
+    ! Save
++ PromptManager
+    > Prompts, list of str
+    ! GetRandomPrompts, returns str
++ Menu
+    ! Display, Void
++ Entry
+    > Date, str
+    > Prompt, str
+    > Response, str
+
