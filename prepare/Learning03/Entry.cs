@@ -1,7 +1,7 @@
 public class Entry
 {
      // ATTRIBUTE DECLARATION
-    public string Date;
-    public string Prompt;
-    public string Response;
+    public string _date;
+    public string _prompt;
+    public string _response;
 }
