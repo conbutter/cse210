@@ -12,4 +12,13 @@ public class Resume
             job.Display();
         }
     }
+
+    public void Add()
+    {
+        Job newJob = new Job();
+
+        Console.WriteLine($"Enter Name: ");
+        string name = Console.ReadLine();
+        newJob._jobs = name;
+    }
 }
