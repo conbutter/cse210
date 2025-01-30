@@ -1,7 +1,9 @@
 public class PromptManager
 {
     // ATTRIBUTE DECLARATION
-    public static List<string> _prompts = new List<string>() {"Prompt 1 Here", "Prompt 2 Here", "Prompt 3 Here"};
+    public List<string> _prompts = new List<string>() {"What was the best part of your day?", 
+    "How are you feeling right now?", "What are you looking forward to?", "If I could do one thing differently today, it would be:",
+    "I'm thinking of doing this tomorrow:", "Someone I talked with today was:"};
 
     // MODULE DECLARATION
 

@@ -1,7 +1,7 @@
 public class Menu
 {
      // MODULE DECLARATION
-    public void DisplayMenu() {
-        Console.WriteLine("Program Menu\n1) Add Entry\n2) Display Entry\n3) Quit Program\n");
+    public static void DisplayMenu() {
+        Console.WriteLine("\n--- MAIN MENU ---\n1) Add Entry\n2) Display Journal\n3) COMING SOON!\n4) Quit Program\n");
     }
 }
