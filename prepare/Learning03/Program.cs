@@ -1,10 +1,5 @@
 using System;
-using System.Net.Quic;
-using System.Runtime.InteropServices;
 using System.IO;
-using System.IO.Enumeration;
-using System.Security.Cryptography.X509Certificates;
-
 
 class Program
 {
@@ -18,29 +13,31 @@ class Program
         // Welcome + Program Loop
         Console.WriteLine("Welcome to the Journal Program!");
 
-        StartingLoadHandler(); // Initial Program Load / Save Handler Function
-
         bool program_active = true;
+        bool edit_status = false;
 
         while ( program_active == true ) {
             Menu.DisplayMenu();
             string user_response = Console.ReadLine();
-            int selected_item = Int32.Parse( user_response );
-            if ( selected_item == 1 ){ // Add Entry
+            if ( user_response == "1" ){ // Add Entry
                 AddEntry(_promptManager, _journal);
-            } else if ( selected_item == 2 ) { // Display All Entries
+                edit_status = true;
+            } else if ( user_response == "2" ) { // Display All Entries
                 DisplayJournal(_journal);
-            } else if ( selected_item == 3 ) { // Load / Save Handler
-                Console.WriteLine("Coming soon!");
-            } else if ( selected_item == 4 ) { // Quit Program
+            } else if ( user_response == "3" ) { // Save Journal
+                SaveJournal(_journal);
+                edit_status = false;
+            } else if ( user_response == "4" ) { // Load Journal
+                VerifySavePrompt(_journal, edit_status, "loading another journal");
+                LoadJournal(_journal);
+            } else if ( user_response == "5" ) { // Quit Program
+                VerifySavePrompt(_journal, edit_status, "quitting the program");
                 Quit();
             } else {
-                Console.WriteLine("That is not an acceptable option.");
+                Console.WriteLine("\nThat is not an acceptable option. Please enter an acceptable integer.");
             }
             
         }
-
-        
         
     }
 
@@ -49,57 +46,97 @@ class Program
         Entry newEntry = new Entry();
         newEntry._date = DateTime.Now.ToString("yyyy-MM-dd"); // Add date
         newEntry._prompt = _promptManager.GetRandomPrompt(); // Get prompt
-        Console.WriteLine($"Please answer the prompt: {newEntry._prompt}"); // Obtain Response
+        Console.WriteLine($"\nPlease answer the prompt: {newEntry._prompt}"); // Obtain Response
         newEntry._response = Console.ReadLine(); // Save response
         _journal._entries.Add(newEntry); // Save as entry to currently loaded Journal
+        Console.WriteLine($"New entry added: '{newEntry._prompt} | {newEntry._response}");
     }
 
     public static void DisplayJournal(Journal _journal)
     {
-        foreach ( var entry in _journal._entries )
-        {
-            Console.WriteLine($"{entry._date} | Prompt: {entry._prompt} | Response: {entry._response}");
+        if ( _journal._entries.Count() != 0 ) {
+            Console.WriteLine("\n");
+            foreach ( var entry in _journal._entries )
+            {
+                Console.WriteLine($"{entry._date} | Prompt: {entry._prompt} | Response: {entry._response}");
+            }
+        } else {
+            Console.WriteLine($"\nYour journal currently has no entries. Why not try adding one?");
         }
+        
+    }
+
+    public static void SaveJournal(Journal _journal) {
+        if ( _journal._entries.Count() != 0 ) {
+            Console.WriteLine("\nPlease type a filename to save the journal to (include file type).");
+            string filename = Console.ReadLine();
+            Console.WriteLine($"Saving journal '{filename}'...");
+            using (StreamWriter outputFile = new StreamWriter(filename))
+            {
+                foreach ( var entry in _journal._entries )
+                {
+                    outputFile.WriteLine($"{entry._date}%{entry._prompt}%{entry._response}");
+                }
+            }
+            Console.WriteLine($"Journal '{filename}' saved.");
+        } else {
+            Console.WriteLine($"\nYour journal currently has no entries. To save, please add at least 1 entry.");
+        }
+    }
+
+    public static void LoadJournal(Journal _journal) {
+        Console.WriteLine("\nPlease type the filename of the journal you wish to load (include file type).");
+        string filename = Console.ReadLine();
+        Console.WriteLine($"Loading journal '{filename}'...");
+        _journal._entries.Clear();
+        string[] lines = System.IO.File.ReadAllLines(filename);
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split("%");
+
+            string _entryDate = parts[0];
+            string _entryPrompt = parts[1];
+            string _entryResponse = parts[2];
+
+            AddEntryViaLoad(_journal, _entryDate, _entryPrompt, _entryResponse);
+        }
+        Console.WriteLine($"\nJournal '{filename}' loaded.");
+    }
+
+    public static void AddEntryViaLoad(Journal _journal, string date, string prompt, string response) 
+    {
+        Entry newEntry = new Entry();
+        newEntry._date = date;
+        newEntry._prompt = prompt;
+        newEntry._response = response;
+        _journal._entries.Add(newEntry);
     }
 
     public static void Quit()
     {
-        Console.WriteLine("Quitting program...");
+        Console.WriteLine("\nQuitting program...");
         Environment.Exit(0);
     }
 
-    public static void StartingLoadHandler()
-    {
-        Console.WriteLine("\nWould you like to create a new journal or load a previous one?\n1) Create New Journal\n2) Load Journal\n\nPlease type the number of the option you wish to select.");
-        string user_response = Console.ReadLine();
-        int selected_item = Int32.Parse( user_response );
-        Journal _journal = new Journal();
-        if ( selected_item == 1 ) {
-            Console.WriteLine("New journal created. Please specify journal file name. DO NOT include '.json'.");
-            string filename = Console.ReadLine();
-            Console.WriteLine($"New Journal named '{filename}' created.");
-            string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{filename}.json");
-            _journal.SaveToFile(filepath);
+    public static void VerifySavePrompt(Journal _journal, bool edit_status, string action_type) {
+        if ( edit_status == true ) {
+            bool verify_prompt_active = true;
+            while ( verify_prompt_active == true ) {
+                Console.WriteLine($"Would you like to save before {action_type}? (y/n)");
+                string user_response = Console.ReadLine();
+                if ( user_response == "y" ) {
+                    verify_prompt_active = false;
+                    SaveJournal(_journal);
+                    return;
+                } else if ( user_response == "n" ) {
+                    verify_prompt_active = false;
+                    return;
+                } else {
+                    Console.WriteLine("\nThat is not an acceptable option. Please type either 'y' or 'n'.");
+                }
+            }
+        } else {
             return;
-        } else if ( selected_item == 2 ) {
-            LoadNewJournal();
         }
-    }
-
-    public static void LoadNewJournal() {
-        Console.WriteLine("Please type the filename of the journal you wish to load. DO NOT include '.json'.");
-        string filename = Console.ReadLine();
-        string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{filename}.json");
-        Journal.LoadFromFile(filepath);
-        return;
-    }
-
-    public static void SaveNewJournal() {
-        Console.WriteLine("Please type the filename of the journal you wish to save. DO NOT include '.json'.");
-        string filename = Console.ReadLine();
-        string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{filename}.json");
-        Console.WriteLine($"Saving journal as '{filename}.json'...");
-        _journal.SaveToFile(filepath);
-
     }
 }
