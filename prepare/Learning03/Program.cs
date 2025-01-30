@@ -1,6 +1,12 @@
 using System;
 using System.IO;
 
+// --- Connor Butterfield's Journal Program v1.0.0 ---
+// Features:
+// + Meets base requirements of journal program assignment
+// + Verifies that user wants to save file before quitting program or loading new journal
+// + Adds mood option as part of journal entry inputs
+// ---------------------------------------------------
 class Program
 {
     static void Main(string[] args)
@@ -48,8 +54,10 @@ class Program
         newEntry._prompt = _promptManager.GetRandomPrompt(); // Get prompt
         Console.WriteLine($"\nPlease answer the prompt: {newEntry._prompt}"); // Obtain Response
         newEntry._response = Console.ReadLine(); // Save response
+        Console.WriteLine($"\nWhat is the overall mood of the day? {newEntry._mood}"); // Obtain Mood Response
+        newEntry._mood = Console.ReadLine(); // Save mood
         _journal._entries.Add(newEntry); // Save as entry to currently loaded Journal
-        Console.WriteLine($"New entry added: '{newEntry._prompt} | {newEntry._response}");
+        Console.WriteLine($"New entry added: '{newEntry._prompt} | {newEntry._response} | {newEntry._mood}");
     }
 
     public static void DisplayJournal(Journal _journal)
@@ -58,7 +66,7 @@ class Program
             Console.WriteLine("\n");
             foreach ( var entry in _journal._entries )
             {
-                Console.WriteLine($"{entry._date} | Prompt: {entry._prompt} | Response: {entry._response}");
+                Console.WriteLine($"{entry._date} |  {entry._prompt} {entry._response} | Mood: {entry._mood}");
             }
         } else {
             Console.WriteLine($"\nYour journal currently has no entries. Why not try adding one?");
@@ -75,7 +83,7 @@ class Program
             {
                 foreach ( var entry in _journal._entries )
                 {
-                    outputFile.WriteLine($"{entry._date}%{entry._prompt}%{entry._response}");
+                    outputFile.WriteLine($"{entry._date}%{entry._prompt}%{entry._response}%{entry._mood}");
                 }
             }
             Console.WriteLine($"Journal '{filename}' saved.");
@@ -97,18 +105,20 @@ class Program
             string _entryDate = parts[0];
             string _entryPrompt = parts[1];
             string _entryResponse = parts[2];
+            string _entryMood = parts[3];
 
-            AddEntryViaLoad(_journal, _entryDate, _entryPrompt, _entryResponse);
+            AddEntryViaLoad(_journal, _entryDate, _entryPrompt, _entryResponse, _entryMood);
         }
         Console.WriteLine($"\nJournal '{filename}' loaded.");
     }
 
-    public static void AddEntryViaLoad(Journal _journal, string date, string prompt, string response) 
+    public static void AddEntryViaLoad(Journal _journal, string date, string prompt, string response, string mood) 
     {
         Entry newEntry = new Entry();
         newEntry._date = date;
         newEntry._prompt = prompt;
         newEntry._response = response;
+        newEntry._mood = mood;
         _journal._entries.Add(newEntry);
     }
 
