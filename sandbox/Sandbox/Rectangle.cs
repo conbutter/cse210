@@ -26,6 +26,6 @@
 
     public void Display()
     {
-        Console.WriteLine($"Rectangle: {_width}. {_height}");
+        Console.WriteLine($"Rectangle: {_width}, {_height}");
     }
 }
