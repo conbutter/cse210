@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
@@ -46,6 +46,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Develop04", "prove\Develop04\Develop04.csproj", "{6EFA7E37-55C4-4569-8408-51FEC51253C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Develop05", "prove\Develop05\Develop05.csproj", "{CE581B79-D008-42B5-A427-F06EC6F00A55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sandbox", "sandbox", "{9BD1CAC1-4326-4D59-9857-A733451B87EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sandbox", "sandbox\Sandbox\Sandbox.csproj", "{80DC8317-35BE-4231-A364-4C264F67218C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
