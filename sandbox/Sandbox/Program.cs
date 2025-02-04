@@ -2,7 +2,7 @@
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Shapes Program!")
+        Console.WriteLine("Shapes Program!");
 
         Rectangle rect = new Rectangle();
         rect.Display();
