@@ -16,6 +16,13 @@
         _width = width;
         _height = height;
     }
+    
+    // Module declarations
+
+    public void SetWidth(double width)
+    {
+        _width = width;
+    }
 
     public void Display()
     {
