@@ -4,7 +4,7 @@ class Fraction
     private int _top;
     private int _bottom;
 
-    // MODULE DECLARATION
+    // CONSTRUCTOR DECLARATION
     public Fraction()
     {
         _top = 1;
@@ -23,6 +23,7 @@ class Fraction
         _bottom = bottomNumber;
     }
 
+    // MODULE DECLARATION
     public int GetTopNumber()
     {
         return _top;
