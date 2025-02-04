@@ -16,4 +16,9 @@
         _width = width;
         _height = height;
     }
+
+    public void Display()
+    {
+        Console.WriteLine($"Rectangle: {_width}. {_height}");
+    }
 }
