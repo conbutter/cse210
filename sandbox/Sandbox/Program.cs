@@ -7,7 +7,9 @@
         Rectangle rect = new Rectangle();
         rect.Display();
 
-        rect = new Rectangle(100, 200);
+        rect.SetWidth(100);
+        rect.SetHeight(200);
         rect.Display();
+
     }
 }
