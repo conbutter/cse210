@@ -1,12 +1,17 @@
-using System.ComponentModel.DataAnnotations;
-
 class Word
 {
     // Attribute Declaration
     private string _word;
     private bool _hidden = false;
 
-    // Module Declaration
+    // Constructor Declaration
+    public Word(string word)
+    {
+        _word = word;
+        _hidden = false;
+    }
+
+    // Module Declarations
     public void Display()
     {
         if ( _hidden == true )
@@ -16,7 +21,7 @@ class Word
                 Console.Write("_");
             }
         } else
-            Console.WriteLine(_word);
+            Console.Write(_word);
     }
 
     public bool isHidden()

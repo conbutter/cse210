@@ -3,33 +3,50 @@ class Scripture
     // Attribute Declaration
     private List<Verse> _verses = new List<Verse>();
 
+    private string _reference; // ADD REFERENCE
+
     // Constructor Declaration
-    public Scripture(string scripture_content)
+    public Scripture(string reference, string content)
     {
-        // foreach (string verse in scripture_content)
-        // {
-            
-        // }
+        _reference = reference;
+        string[] verseList = content.Split(";");
+        foreach (string verse in verseList)
+        {
+            _verses.Add(new Verse(verse.Trim()));
+        }
     }
 
     // Module Declaration
     public void Display()
     {
-        // For each verse in list, display it
+        Console.Clear();
+        Console.Write(_reference + " ");
+        foreach ( Verse verse in _verses )
+        {
+            verse.Display();
+        }
     }
 
-    public void isFinished()
+    public bool isFinished()
     {
-        // For each verse in list, check if they're finished using Verse's isFinished function
+        bool finishStatus = true;
+        foreach ( Verse verse in _verses )
+        {
+            if ( verse.isFinished() == false )
+            {
+                finishStatus = false;
+            }
+        }
+        return finishStatus;
     }
 
-    public bool HideWords()
+    public void HideWords()
     {
+        foreach (Verse verse in _verses)
+        {
+            verse.HideWords();
+        }
         // For each verse in list, hide words
         // Temp code below
-        return true;
     }
-
-    
-
 }
