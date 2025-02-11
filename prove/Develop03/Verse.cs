@@ -30,27 +30,28 @@ class Verse
                 Console.Write(" ");
             }
         }
-        Console.Write(" ");
+        Console.Write("");
     }
 
-public void HideWords()
-{
-    int list_length = _words.Count;
-    Random random = new Random();
-    int visibleWords = _words.Count(word => !word.isHidden());
-    int wordsToHide = Math.Min(3, visibleWords);
-
-    for (int i = 0; i < wordsToHide;)
+    public void HideWords()
     {
-        int hideIndex = random.Next(0, list_length);
-        if (!_words[hideIndex].isHidden())
+        int list_length = _words.Count();
+        Random random = new Random();
+        for (int i = 0; i < 3;)
         {
-            _words[hideIndex].HideWord();
-            i++;
+            int hideIndex = random.Next(0, list_length);
+            if ( _words[hideIndex].isHidden() == false )
+            {
+                _words[hideIndex].HideWord();
+                i++;
+            }
         }
     }
-}
 
+    public List<Word> GetWords()
+    {
+        return _words;
+    }
 
     public bool isFinished()
     {
@@ -62,7 +63,6 @@ public void HideWords()
                 finishStatus = false;
             }
         }
-
         return finishStatus;
     }
 

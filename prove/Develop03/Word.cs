@@ -37,10 +37,4 @@ class Word
     {
         _hidden = true;
     }
-
-    // TEST ELEMENTS // UNUSED // LEFT FOR TESTING
-    public void SetWord(string word)
-    {
-        _word = word;
-    }
 }

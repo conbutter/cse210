@@ -9,7 +9,7 @@ class Scripture
     public Scripture(string reference, string content)
     {
         _reference = reference;
-        string[] verseList = content.Split(";");
+        string[] verseList = content.Split("|");
         foreach (string verse in verseList)
         {
             _verses.Add(new Verse(verse.Trim()));
@@ -24,6 +24,7 @@ class Scripture
         foreach ( Verse verse in _verses )
         {
             verse.Display();
+            Console.Write(" ");
         }
     }
 
@@ -42,11 +43,26 @@ class Scripture
 
     public void HideWords()
     {
-        foreach (Verse verse in _verses)
-        {
-            verse.HideWords();
-        }
-        // For each verse in list, hide words
-        // Temp code below
+    // Combine all the words from all verses into one list
+    List<Word> allWords = new List<Word>();
+    foreach (Verse verse in _verses)
+    {
+        allWords.AddRange(verse.GetWords());
     }
+
+    Random random = new Random();
+    int visibleWords = allWords.Count(word => !word.isHidden());
+    int wordsToHide = Math.Min(3, visibleWords);
+
+    // Hide words in the combined list
+    for (int i = 0; i < wordsToHide;)
+    {
+        int hideIndex = random.Next(0, allWords.Count);
+        if (!allWords[hideIndex].isHidden())
+        {
+            allWords[hideIndex].HideWord();
+            i++;
+        }
+    }
+}
 }
