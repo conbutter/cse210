@@ -33,21 +33,6 @@ class Verse
         Console.Write("");
     }
 
-    public void HideWords()
-    {
-        int list_length = _words.Count();
-        Random random = new Random();
-        for (int i = 0; i < 3;)
-        {
-            int hideIndex = random.Next(0, list_length);
-            if ( _words[hideIndex].isHidden() == false )
-            {
-                _words[hideIndex].HideWord();
-                i++;
-            }
-        }
-    }
-
     public List<Word> GetWords()
     {
         return _words;
