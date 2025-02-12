@@ -37,8 +37,4 @@ class Program
         }
     }
 
-    // public void HideWords()
-    // {
-    //     // Content here???
-    // }
 }

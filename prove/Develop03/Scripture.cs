@@ -2,8 +2,7 @@ class Scripture
 {
     // Attribute Declaration
     private List<Verse> _verses = new List<Verse>();
-
-    private string _reference; // ADD REFERENCE
+    private string _reference;
 
     // Constructor Declaration
     public Scripture(string reference, string content)
@@ -43,7 +42,6 @@ class Scripture
 
     public void HideWords()
     {
-    // Combine all the words from all verses into one list
     List<Word> allWords = new List<Word>();
     foreach (Verse verse in _verses)
     {
@@ -54,7 +52,6 @@ class Scripture
     int visibleWords = allWords.Count(word => !word.isHidden());
     int wordsToHide = Math.Min(3, visibleWords);
 
-    // Hide words in the combined list
     for (int i = 0; i < wordsToHide;)
     {
         int hideIndex = random.Next(0, allWords.Count);
