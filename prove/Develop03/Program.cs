@@ -10,7 +10,8 @@ class Program
     // Module Declaration
     static void Main(string[] args)
     {
-        Scripture scripture1 = new Scripture("Alma 26:26-27", "But behold, my beloved brethren, we came into the wilderness not with the intent to destroy our brethren, but with the intent that perhaps we might save some few of their souls.|Now when our hearts were depressed, and we were about to turn back, behold, the Lord comforted us, and said: Go amongst thy brethren, the Lamanites, and bear with patience thine afflictions, and I will give unto you success.");
+        ScriptureMan scripture_selector = new ScriptureMan();
+        Scripture scripture1 = scripture_selector.chooseRandomScripture();
         Console.Clear();
 
         bool program_status = true;
