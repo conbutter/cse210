@@ -42,22 +42,22 @@ class Scripture
 
     public void HideWords()
     {
-    List<Word> allWords = new List<Word>();
+    List<Word> all_words = new List<Word>();
     foreach (Verse verse in _verses)
     {
-        allWords.AddRange(verse.GetWords());
+        all_words.AddRange(verse.GetWords());
     }
 
     Random random = new Random();
-    int visibleWords = allWords.Count(word => !word.isHidden());
-    int wordsToHide = Math.Min(3, visibleWords);
+    int visible_words = all_words.Count(word => !word.isHidden());
+    int words_to_hide = Math.Min(3, visible_words);
 
-    for (int i = 0; i < wordsToHide;)
+    for (int i = 0; i < words_to_hide;)
     {
-        int hideIndex = random.Next(0, allWords.Count);
-        if (!allWords[hideIndex].isHidden())
+        int hide_index = random.Next(0, all_words.Count);
+        if (!all_words[hide_index].isHidden())
         {
-            allWords[hideIndex].HideWord();
+            all_words[hide_index].HideWord();
             i++;
         }
     }
