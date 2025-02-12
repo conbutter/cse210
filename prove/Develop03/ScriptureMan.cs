@@ -17,6 +17,4 @@ class ScriptureMan
         int chosen_scripture = random.Next(_scriptures.Count);
         return _scriptures[chosen_scripture];
     }
-    // Return scripture list
-    // Instantiate scripture list
 }
