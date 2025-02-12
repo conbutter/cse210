@@ -18,7 +18,6 @@ class ScriptureMan
     {
         Random random = new Random();
         int chosen_scripture = random.Next(_scriptures.Count);
-        
         return _scriptures[chosen_scripture];
     }
 }
