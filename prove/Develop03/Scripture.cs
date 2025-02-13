@@ -5,11 +5,11 @@ class Scripture
     private string _reference;
 
     // Constructor Declaration
-    public Scripture(string reference, string content)
+    public Scripture( string reference, string content )
     {
         _reference = reference;
         string[] verseList = content.Split("|");
-        foreach (string verse in verseList)
+        foreach ( string verse in verseList )
         {
             _verses.Add(new Verse(verse.Trim()));
         }
@@ -43,18 +43,18 @@ class Scripture
     public void HideWords()
     {
     List<Word> all_words = new List<Word>();
-    foreach (Verse verse in _verses)
+    foreach ( Verse verse in _verses )
     {
         all_words.AddRange(verse.GetWords());
     }
 
     Random random = new Random();
-    int visible_words = all_words.Count(word => !word.IsHidden());
-    int words_to_hide = Math.Min(3, visible_words);
+    int visible_words = all_words.Count( word => !word.IsHidden() );
+    int words_to_hide = Math.Min( 3, visible_words );
 
-    for (int i = 0; i < words_to_hide;)
+    for ( int i = 0; i < words_to_hide; )
     {
-        int hide_index = random.Next(0, all_words.Count);
+        int hide_index = random.Next( 0, all_words.Count );
         if (!all_words[hide_index].IsHidden())
         {
             all_words[hide_index].HideWord();

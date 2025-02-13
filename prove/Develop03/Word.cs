@@ -5,7 +5,7 @@ class Word
     private bool _hidden = false;
 
     // Constructor Declaration
-    public Word(string word)
+    public Word( string word )
     {
         _word = word;
         _hidden = false;
@@ -16,7 +16,7 @@ class Word
     {
         if ( _hidden == true )
         {
-            foreach (char letter in _word )
+            foreach ( char letter in _word )
             {
                 Console.Write("_");
             }
