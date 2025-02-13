@@ -1,10 +1,10 @@
-class ScriptureMan
+class ScriptureManager
 {
     // Attribute Declaration
     private List<Scripture> _scriptures = new List<Scripture>();
 
     // Constructor Declaration
-    public ScriptureMan() // Verses are parsed by the divider character "|".
+    public ScriptureManager() // Verses are parsed by the divider character "|".
     {
         // Template: _scriptures.Add(new Scripture("TEMPLATE", CHAPTER NUMBER, VERSE START NUMBER, VERSE END NUMBER, "SCRIPTURE CONTENT HERE"));
         _scriptures.Add(new Scripture("Alma", 26, 26, 27, "But behold, my beloved brethren, we came into the wilderness not with the intent to destroy our brethren, but with the intent that perhaps we might save some few of their souls.|Now when our hearts were depressed, and we were about to turn back, behold, the Lord comforted us, and said: Go amongst thy brethren, the Lamanites, and bear with patience thine afflictions, and I will give unto you success."));
