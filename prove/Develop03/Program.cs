@@ -7,7 +7,7 @@ class Program
     // Module Declaration
     static void Main(string[] args)
     {
-        ScriptureMan scripture_selector = new ScriptureMan();
+        ScriptureManager scripture_selector = new ScriptureManager();
         Scripture chosen_scripture = scripture_selector.ChooseRandomScripture();
         Console.Clear();
 
