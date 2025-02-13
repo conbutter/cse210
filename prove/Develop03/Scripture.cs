@@ -2,12 +2,12 @@ class Scripture
 {
     // Attribute Declaration
     private List<Verse> _verses = new List<Verse>();
-    private string _reference;
+    private Reference _reference;
 
     // Constructor Declaration
-    public Scripture( string reference, string content )
+    public Scripture( string reference_book, int reference_chapter, int reference_start, int reference_end, string content )
     {
-        _reference = reference;
+        _reference = new Reference(reference_book, reference_chapter, reference_start, reference_end);
         string[] verseList = content.Split("|");
         foreach ( string verse in verseList )
         {
@@ -19,7 +19,7 @@ class Scripture
     public void Display()
     {
         Console.Clear();
-        Console.Write(_reference + " ");
+        _reference.Display();
         foreach ( Verse verse in _verses )
         {
             verse.Display();
