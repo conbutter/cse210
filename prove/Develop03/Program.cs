@@ -9,9 +9,11 @@ class Program
     {
         ScriptureManager scripture_selector = new ScriptureManager();
         Scripture chosen_scripture = scripture_selector.ChooseRandomScripture();
+        
         Console.Clear();
 
         bool program_status = true;
+
         while ( program_status == true )
         {
             chosen_scripture.Display();
