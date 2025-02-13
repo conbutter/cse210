@@ -4,9 +4,6 @@ using System.Runtime.InteropServices;
 
 class Program
 {
-    // Attribute Declaration
-    private static List<Scripture> _scriptures = new List<Scripture>();
-
     // Module Declaration
     static void Main(string[] args)
     {
@@ -24,18 +21,12 @@ class Program
             {
                 program_status = false;
             } else {
-                isFinished(scripture1);
+                if ( scripture1.isFinished() )
+                {
+                    Environment.Exit(0);
+                }
                 scripture1.HideWords();
             }
         }
     }
-
-    public static void isFinished(Scripture scripture)
-    {
-        if ( scripture.isFinished() == true )
-        {
-            Environment.Exit(0);
-        }
-    }
-
 }
