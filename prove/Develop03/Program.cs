@@ -25,7 +25,7 @@ class Program
                 {
                     Environment.Exit(0);
                 }
-                chosen_scripture.HideWords();
+                chosen_scripture.HideElements();
             }
         }
     }

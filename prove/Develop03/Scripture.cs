@@ -40,7 +40,7 @@ class Scripture
         return finishStatus;
     }
 
-    public void HideWords()
+    public void HideElements()
     {
     List<Word> all_words = new List<Word>();
     foreach ( Verse verse in _verses )
