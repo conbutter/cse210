@@ -27,12 +27,12 @@ class Scripture
         }
     }
 
-    public bool isFinished()
+    public bool IsFinished()
     {
         bool finishStatus = true;
         foreach ( Verse verse in _verses )
         {
-            if ( verse.isFinished() == false )
+            if ( verse.IsFinished() == false )
             {
                 finishStatus = false;
             }
@@ -49,13 +49,13 @@ class Scripture
     }
 
     Random random = new Random();
-    int visible_words = all_words.Count(word => !word.isHidden());
+    int visible_words = all_words.Count(word => !word.IsHidden());
     int words_to_hide = Math.Min(3, visible_words);
 
     for (int i = 0; i < words_to_hide;)
     {
         int hide_index = random.Next(0, all_words.Count);
-        if (!all_words[hide_index].isHidden())
+        if (!all_words[hide_index].IsHidden())
         {
             all_words[hide_index].HideWord();
             i++;

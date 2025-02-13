@@ -24,7 +24,7 @@ class Word
             Console.Write(_word);
     }
 
-    public bool isHidden()
+    public bool IsHidden()
     {
         if ( _hidden == true )
         {

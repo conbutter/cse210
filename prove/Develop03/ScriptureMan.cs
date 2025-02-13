@@ -14,7 +14,7 @@ class ScriptureMan
     }
 
     // Module Declaration
-    public Scripture chooseRandomScripture()
+    public Scripture ChooseRandomScripture()
     {
         Random random = new Random();
         int chosen_scripture = random.Next(_scriptures.Count);

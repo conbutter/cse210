@@ -38,12 +38,12 @@ class Verse
         return _words;
     }
 
-    public bool isFinished()
+    public bool IsFinished()
     {
         bool finishStatus = true;
         foreach (Word word in _words)
         {
-            if ( word.isHidden() == false )
+            if ( word.IsHidden() == false )
             {
                 finishStatus = false;
             }
