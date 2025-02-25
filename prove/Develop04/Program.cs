@@ -8,7 +8,14 @@ class Program
 
         // Create class objects & variables
         Menu mainMenu = new Menu();
-        BreathingActivity breathingActivity = new BreathingActivity("Breathing", "Throughout this exercise, we'll walk you through breathing in and out. Let your mind relax, and focus on your breathing.");
+        BreathingActivity breathingActivity = new BreathingActivity(
+            "Breathing", 
+            "Throughout this exercise, we'll walk you through breathing in and out. Let your mind relax, and focus on your breathing."
+            );
+        ReflectionActivity reflectionActivity = new ReflectionActivity(
+            "Reflection", 
+            "Throughout this exercise, you'll be asked to remember certain times in your life. These should optimally be instances where you have shown strength, resilience, and power."
+            );
         bool programRunning = true;
 
         // Main program loop
@@ -26,7 +33,11 @@ class Program
             }
             else if (userInput == "2")
             {
-                // Start reflection activity
+                reflectionActivity.DisplayIntro();
+                reflectionActivity.PromptDuration();
+                reflectionActivity.ShowGetReady();
+                reflectionActivity.DoActivity();
+                reflectionActivity.DisplayWellDone();
             }
             else if (userInput == "3")
             {
