@@ -42,7 +42,24 @@ class Activity
 
     public void ShowAnimation(int length)
     {
-        // Show "loading" animation based on the length provided
+        DateTime startTime = DateTime.Now;
+        DateTime finishTime = startTime.AddSeconds(length);
+
+        while (DateTime.Now < finishTime)
+        {
+            Console.Write("|");
+            Thread.Sleep(100);
+            Console.Write("\b \b");
+            Console.Write("/");
+            Thread.Sleep(100);
+            Console.Write("\b \b");
+            Console.Write("-");
+            Thread.Sleep(100);
+            Console.Write("\b \b");
+            Console.Write("\\");
+            Thread.Sleep(100);
+            Console.Write("\b \b");
+        }
     }
 
     public void ShowCountDown(string text, int length)
