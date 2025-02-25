@@ -7,15 +7,22 @@ class BreathingActivity : Activity
 
     // Constructor declaration
 
-    public BreathingActivity(string name, string desc, int duration) : base(name, desc, duration)
+    public BreathingActivity(string name, string desc) : base(name, desc)
     {
-        // Constructor content
+        // No further elements
     }
 
     // Module declaration
 
     public void DoActivity()
     {
-        // Functionality for core activity loop
+        DateTime startTime = DateTime.Now;
+        DateTime finishTime = startTime.AddSeconds(GetDuration());
+
+        while (DateTime.Now < finishTime)
+        {
+            ShowCountDown("\nBreathe in... ", 4);
+            ShowCountDown("Breathe out... ", 6);
+        }
     }
 }

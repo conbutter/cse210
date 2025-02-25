@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Metrics;
 
 class Activity
 {
@@ -9,14 +10,13 @@ class Activity
 
     // Constructor declaration
 
-    public Activity()
+    public Activity(string name, string desc)
     {
-        _name = "";
-        _desc = "";
-        _duration = 0;
+        _name = name;
+        _desc = desc;
     }
 
-    public Activity(string name, string desc, int duration)
+      public Activity(string name, string desc, int duration)
     {
         _name = name;
         _desc = desc;
@@ -27,17 +27,33 @@ class Activity
 
     public void DisplayIntro()
     {
-        // Display intro based on video concept
+        Console.Clear();
+        Console.WriteLine($"Welcome to the {_name} Activity\n\n{_desc}\n");
     }
 
     public void PromptDuration()
     {
-        // Returns duration of activity prompt
+        Console.WriteLine("How long, in seconds, do you want the session to be? ");
+        string userInput = Console.ReadLine();
+        int duration = int.Parse(userInput);
+        _duration = duration;
+    }
+
+    public int GetDuration()
+    {
+        return _duration;
     }
 
     public void ShowGetReady()
     {
-        // Display prep text based on video concept
+        Console.Clear();
+        Console.WriteLine("Get ready to start...");
+        ShowAnimation(5);
+    }
+
+    public void SetDuration(int duration)
+    {
+        _duration = duration;
     }
 
     public void ShowAnimation(int length)
@@ -64,11 +80,24 @@ class Activity
 
     public void ShowCountDown(string text, int length)
     {
-        // Show countdown animation with provided text and length
+        int counterNumber = length;
+        Console.Write(text);
+
+        while (counterNumber != 0)
+        {
+            Console.Write(counterNumber);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+            counterNumber -= 1;
+        }
     }
 
     public void DisplayWellDone()
     {
-        // Display well done text, using information about activity name and details
+        Console.WriteLine("\n\n--- End of Activity ---\nWell done!");
+        ShowAnimation(3);
+        Console.WriteLine($"You completed {_duration} seconds of the {_name} Activity.");
+        ShowAnimation(5);
+        Console.Clear();
     }
 }
