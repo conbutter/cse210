@@ -38,13 +38,14 @@ class ReflectionActivity : Activity
         Random random = new Random();
         string chosenPrompt = _prompts[random.Next(_prompts.Count)];
 
-        Console.WriteLine($"Consider the following prompt:\n\n-> {chosenPrompt} <-\n\nWhen you have something in mind, press Enter to continue.");
+        Console.WriteLine($"Consider the following prompt:\n\n[ {chosenPrompt} ]\n\nWhen you have something in mind, press Enter to continue.");
         Console.ReadLine();
 
         Console.WriteLine("Now, ponder on each of the following questions in the way that they relate to your experience.");
         ShowCountDown("Questions start in...", 5);
 
         Console.Clear();
+        Console.WriteLine($"[ {chosenPrompt} ]");
 
         DateTime startTime = DateTime.Now;
         DateTime finishTime = startTime.AddSeconds(GetDuration());

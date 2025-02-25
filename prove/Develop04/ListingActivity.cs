@@ -6,10 +6,11 @@ class ListingActivity : Activity
     // Attribute declaration
 
     List<string> _prompts = new List<string>{
-        "Content1",
-        "Content2",
-        "Content3",
-        "Content4"
+        "What are personal strengths of yours?",
+        "Who are people that you appreciate?",
+        "Who are people that you have helped this week?",
+        "When have you felt the Holy Ghost this month?",
+        "Who are some of your personal heroes?"
     };
     List<string> _responses = new List<string>();
 
@@ -27,12 +28,12 @@ class ListingActivity : Activity
         // Prompt display and wait
         Random random = new Random();
         string chosenPrompt = _prompts[random.Next(0, _prompts.Count)];
-        Console.WriteLine($"List as many responses that you can to the following prompt:\n\n-> {chosenPrompt} <-\n");
+        Console.WriteLine($"List as many responses that you can to the following prompt:\n\n[ {chosenPrompt} ]\n");
         ShowCountDown("Your time starts in: ", 5);
 
         // Style writing screen
         Console.Clear();
-        Console.WriteLine($"-> {chosenPrompt} <-");
+        Console.WriteLine($"[ {chosenPrompt} ]");
 
         // Finish time definer
         DateTime startTime = DateTime.Now;
