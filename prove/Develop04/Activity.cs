@@ -28,7 +28,7 @@ class Activity
     public void DisplayIntro()
     {
         Console.Clear();
-        Console.WriteLine($"Welcome to the {_name} Activity\n\n{_desc}\n");
+        Console.WriteLine($"Welcome to the {_name} Activity!\n\n{_desc}\n");
     }
 
     public void PromptDuration()
@@ -94,7 +94,7 @@ class Activity
 
     public void DisplayWellDone()
     {
-        Console.WriteLine("\n\n--- End of Activity ---\nWell done!");
+        Console.WriteLine("\n--- End of Activity ---\nWell done!");
         ShowAnimation(3);
         Console.WriteLine($"You completed {_duration} seconds of the {_name} Activity.");
         ShowAnimation(5);

@@ -23,6 +23,7 @@ class BreathingActivity : Activity
         {
             ShowCountDown("\nBreathe in... ", 4);
             ShowCountDown("Breathe out... ", 6);
+            Console.WriteLine();
         }
     }
 }
