@@ -17,6 +17,7 @@ class Log
     public void AddToCounter(int activityType, int secondsSpent)
     {
         _activityCounter += 1;
+        _secondsSpentInActivity += secondsSpent;
 
         if ( activityType == 0 )
         {
@@ -28,8 +29,6 @@ class Log
         {
             _listingCounter += 1;
         }
-
-        _secondsSpentInActivity += secondsSpent;
 
     }
 
