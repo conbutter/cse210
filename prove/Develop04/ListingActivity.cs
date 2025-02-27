@@ -22,7 +22,6 @@ class ListingActivity : Activity
     }
 
     // Module declaration
-
     public void DoActivity()
     {
         // Prompt display and wait

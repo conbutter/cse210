@@ -13,7 +13,6 @@ class BreathingActivity : Activity
     }
 
     // Module declaration
-
     public void DoActivity()
     {
         DateTime startTime = DateTime.Now;

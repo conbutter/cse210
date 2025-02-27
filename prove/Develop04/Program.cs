@@ -2,11 +2,6 @@ using System;
 
 class Program
 {
-    private int _activityCounter;
-    private int _breathingCounter = 0;
-    private int _reflectionCounter = 0;
-    private int _listingCounter = 0;
-    private int _secondsSpentInActivity = 0;
 
     static void Main(string[] args)
     {
@@ -26,6 +21,7 @@ class Program
             "Listing", 
             "Throughout this exercise, you'll be given a general prompt and asked to list as many good things relating to it as you can."
             );
+        Log activityLog = new Log();
         bool programRunning = true;
 
         // Main program loop
@@ -40,6 +36,7 @@ class Program
                 breathingActivity.ShowGetReady();
                 breathingActivity.DoActivity();
                 breathingActivity.DisplayWellDone();
+                activityLog.AddToCounter(0, breathingActivity.GetDuration());
             }
             else if (userInput == "2")
             {
@@ -48,6 +45,7 @@ class Program
                 reflectionActivity.ShowGetReady();
                 reflectionActivity.DoActivity();
                 reflectionActivity.DisplayWellDone();
+                activityLog.AddToCounter(1, listingActivity.GetDuration());
             }
             else if (userInput == "3")
             {
@@ -56,11 +54,12 @@ class Program
                 listingActivity.ShowGetReady();
                 listingActivity.DoActivity();
                 listingActivity.DisplayWellDone();
+                activityLog.AddToCounter(2, reflectionActivity.GetDuration());
             }
             else if (userInput == "4")
             {
                 Console.Clear();
-                Console.WriteLine("[!] Activity Log coming soon!\n");
+                activityLog.DisplayLog();
             }
             else if (userInput == "5")
             {

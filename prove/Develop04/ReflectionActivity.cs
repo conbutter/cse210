@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
 
 class ReflectionActivity : Activity
 {
@@ -32,7 +33,6 @@ class ReflectionActivity : Activity
     }
 
     // Module declaration
-
     public void DoActivity()
     {
         Random random = new Random();
