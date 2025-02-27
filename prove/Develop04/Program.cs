@@ -45,7 +45,7 @@ class Program
                 reflectionActivity.ShowGetReady();
                 reflectionActivity.DoActivity();
                 reflectionActivity.DisplayWellDone();
-                activityLog.AddToCounter(1, listingActivity.GetDuration());
+                activityLog.AddToCounter(1, reflectionActivity.GetDuration());
             }
             else if (userInput == "3")
             {
@@ -54,7 +54,7 @@ class Program
                 listingActivity.ShowGetReady();
                 listingActivity.DoActivity();
                 listingActivity.DisplayWellDone();
-                activityLog.AddToCounter(2, reflectionActivity.GetDuration());
+                activityLog.AddToCounter(2, listingActivity.GetDuration());
             }
             else if (userInput == "4")
             {
