@@ -5,14 +5,14 @@ class ListingActivity : Activity
 {
     // Attribute declaration
 
-    List<string> _prompts = new List<string>{
+    private List<string> _prompts = new List<string>{
         "What are personal strengths of yours?",
         "Who are people that you appreciate?",
         "Who are people that you have helped this week?",
         "When have you felt the Holy Ghost this month?",
         "Who are some of your personal heroes?"
     };
-    List<string> _responses = new List<string>();
+    private List<string> _responses = new List<string>();
 
     // Constructor declaration
 

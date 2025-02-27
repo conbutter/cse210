@@ -2,6 +2,11 @@ using System;
 
 class Program
 {
+    private int _activityCounter;
+    private int _breathingCounter = 0;
+    private int _reflectionCounter = 0;
+    private int _listingCounter = 0;
+
     static void Main(string[] args)
     {
         Console.Clear();
@@ -52,6 +57,11 @@ class Program
                 listingActivity.DisplayWellDone();
             }
             else if (userInput == "4")
+            {
+                Console.Clear();
+                Console.WriteLine("[!] Activity Log coming soon!\n");
+            }
+            else if (userInput == "5")
             {
                 programRunning = false;
                 Console.WriteLine("Quitting program...");

@@ -5,13 +5,13 @@ class ReflectionActivity : Activity
 {
     // Attribute declaration
 
-    List<string> _prompts = new List<string>
+    private List<string> _prompts = new List<string>
         {
             "Think of a time when you overcame a challenge.",
             "Recall a moment where you helped someone in need.",
             "Remember an achievement that made you feel proud."
         };
-    List<string> _questions = new List<string>
+    private List<string> _questions = new List<string>
         {
             "Why was this experience meaningful to you?",
             "What did you learn from this experience?",

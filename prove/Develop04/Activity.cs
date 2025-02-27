@@ -4,9 +4,9 @@ using System.Diagnostics.Metrics;
 class Activity
 {
     // Attribute declaration
-    string _name;
-    string _desc;
-    int _duration;
+    private string _name;
+    private string _desc;
+    private int _duration;
 
     // Constructor declaration
 
