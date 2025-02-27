@@ -6,6 +6,7 @@ class Program
     private int _breathingCounter = 0;
     private int _reflectionCounter = 0;
     private int _listingCounter = 0;
+    private int _secondsSpentInActivity = 0;
 
     static void Main(string[] args)
     {
