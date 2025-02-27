@@ -84,7 +84,7 @@ class Log
         }  
 
         // Await user input to return to menu
-        Console.WriteLine("\nPress Enter to return to the menu.");
+        Console.WriteLine("Press Enter to return to the menu.");
         Console.ReadLine();
         Console.Clear();
     }

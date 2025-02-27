@@ -33,10 +33,31 @@ class Activity
 
     public void PromptDuration()
     {
-        Console.WriteLine("How long, in seconds, do you want the session to be? ");
-        string userInput = Console.ReadLine();
-        int duration = int.Parse(userInput);
-        _duration = duration;
+        bool validInput = false;
+
+        while (validInput == false)
+        {
+            Console.WriteLine("How long, in seconds, do you want the session to be? ");
+            string userInput = Console.ReadLine();
+            if (int.TryParse(userInput, out int duration))
+            {
+                if (duration > 0)
+                {
+                    _duration = duration;
+                    validInput = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("[!] Please enter a duration greater than zero.\n");
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("[!] Invalid input. Please enter a whole number.\n");
+            }
+        }
     }
 
     public int GetDuration()
