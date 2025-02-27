@@ -53,7 +53,7 @@ class ReflectionActivity : Activity
         while (DateTime.Now < finishTime) // Show questions loop
         {
             Console.WriteLine($"> {_questions[random.Next(_questions.Count)]}");
-            ShowAnimation(10);
+            ShowAnimation(7);
         }
     }
 }
