@@ -13,7 +13,7 @@ abstract class Shape
 
     // Module declaration
 
-    public abstract double GetArea(); // Instead of "abstract", could also be "virtual" for default body
+    public abstract double GetArea(); // Instead of "abstract", could also be "virtual" for default body. If any abstract functions, must include abstract in class declaration
 
     public string GetShapeColor()
     {
