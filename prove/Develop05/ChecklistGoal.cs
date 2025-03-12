@@ -19,15 +19,15 @@ class ChecklistGoal : Goal
     }
 
     // Module declaration
-    public override bool isCompleted()
+    public override bool IsCompleted()
     {
         return _isCompleted;
     }
 
-    public override void setCompleted()
+    public override void SetCompleted()
     {
-        _numberToComplete += 1;
-        if ( _numberToComplete >= _finishPoints ) {
+        _completedSoFar += 1;
+        if ( _completedSoFar >= _numberToComplete ) {
             _isCompleted = true;
         }
     }
@@ -50,9 +50,9 @@ class ChecklistGoal : Goal
     public override void DisplayGoal()
     {
         if ( _isCompleted == true ) {
-            Console.WriteLine($"[X] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points");
+            Console.WriteLine($"[X] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points - {_finishPoints} bonus");
         } else {
-            Console.WriteLine($"[ ] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points");
+            Console.WriteLine($"[ ] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points - {_finishPoints} bonus");
         }
     }
 }

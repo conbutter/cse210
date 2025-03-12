@@ -17,9 +17,9 @@ abstract class Goal
     }
 
     // Module declaration
-    public abstract bool isCompleted();
+    public abstract bool IsCompleted();
 
-    public abstract void setCompleted();
+    public abstract void SetCompleted();
 
     public abstract void DisplayGoal();
 
@@ -28,9 +28,13 @@ abstract class Goal
         return _name;
     }
 
+       public string GetDescription()
+    {
+        return _description;
+    }
+
     public int GetPoints()
     {
         return _points;
     }
-
 }

@@ -12,56 +12,30 @@ class Program
     {
         while ( _isRunning == true )
         {
-            Console.WriteLine("\n-+- Goal Tracker Menu -+-\n 1. Create new goal\n 2. List all goals\n 3. Save goals\n 4. Load goals\n 5. Record event\n 6. Quit program\nPlease type the number of the option you wish to select. ");
+            Console.Write("\n-+- Goal Tracker Menu -+-\n 1. Create new goal\n 2. List all goals\n 3. Save goals\n 4. Load goals\n 5. Record event\n 6. Quit program\nPlease type the number of the option you wish to select. ");
             _userInput = Console.ReadLine();
             if ( _userInput == "1" ) {
                 CreateNewGoal();
             } else if ( _userInput == "2" ) {
-                if ( _goalList.Count() != 0 ) {
-                    Console.Clear();
-                    foreach ( Goal goal in _goalList )
-                    {
-                        goal.DisplayGoal();
-                        Console.WriteLine($"Current Points: {_totalPoints}");
-                    }
-                } else {
-                    Console.WriteLine("There are no goals to display.");
-                }
+                ListGoals();
             } else if ( _userInput == "3" ) {
-                // Save goals
+                SaveGoals();
             } else if ( _userInput == "4" ) {
-                // Load goals
+                LoadGoals();
             } else if ( _userInput == "5" ) {
-                if ( _goalList.Count() != 0 ) {
-                    Console.Clear();
-                    foreach ( Goal goal in _goalList )
-                    {
-                        Console.WriteLine($"1. {goal.GetName()}");
-                    }
-                    Console.WriteLine("\nWhat goal would you like to mark as completed?");
-                    _userInput = Console.ReadLine();
-                    foreach ( Goal goal in _goalList )
-                    {
-                        if ( int.Parse(_userInput) == ( _goalList.IndexOf(goal) + 1) )
-                        {
-                            goal.setCompleted();
-                            _totalPoints += goal.GetPoints();
-                            Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
-                        }
-                    }
-                } else {
-                    Console.WriteLine("There are no goals to record events for!");
-                }
+                RecordEvent();
             } else if ( _userInput == "6" ) {
                 _isRunning = false;
+                Console.Clear();
             }
         }
     }
 
     static void CreateNewGoal()
     {
+        Console.Clear();
         int goalType = 0;
-        Console.WriteLine("What type of goal would you like to make?\n 1. Simple Goal\n 2. Eternal Goal \n 3. Checklist Goal\nPlease type the number of the option you wish to select.");
+        Console.Write("What type of goal would you like to make?\n 1. Simple Goal\n 2. Eternal Goal \n 3. Checklist Goal\nPlease type the number of the option you wish to select. ");
         _userInput = Console.ReadLine();
         if ( _userInput == "1" ) {
             goalType = 1;
@@ -70,11 +44,11 @@ class Program
         } else if ( _userInput == "3" ) {
             goalType = 3;
         }
-        Console.WriteLine("Please type the name of the goal:");
+        Console.Write("Please type the name of the goal: ");
         string newGoalName = Console.ReadLine();
-        Console.WriteLine("Please type the description of the goal:");
+        Console.Write("Please type the description of the goal: ");
         string newGoalDesc = Console.ReadLine();
-        Console.WriteLine("Please type the point value of the goal:");
+        Console.Write("Please type the point value of the goal: ");
         int newGoalPoints = int.Parse(Console.ReadLine());
         if ( goalType == 1 ) {
             Goal newSimpleGoal = new SimpleGoal(newGoalName, newGoalDesc, false, newGoalPoints);
@@ -83,12 +57,128 @@ class Program
             Goal newEternalGoal = new EternalGoal(newGoalName, newGoalDesc, newGoalPoints);
             _goalList.Add(newEternalGoal);
         } else if ( goalType == 3 ) {
-            Console.WriteLine("Please type the number of completions required for the bonus:");
+            Console.Write("Please type the number of completions required for the bonus: ");
             int newGoalNumToComplete = int.Parse(Console.ReadLine());
-            Console.WriteLine("Now please type the bonus point value:");
+            Console.Write("Now please type the bonus point value: ");
             int newGoalFinishPoints = int.Parse(Console.ReadLine());
             Goal newChecklistGoal = new ChecklistGoal(newGoalName, newGoalDesc, false, newGoalPoints, newGoalNumToComplete, newGoalFinishPoints);
             _goalList.Add(newChecklistGoal);
+        }
+        Console.Clear();
+        Console.WriteLine($"The goal '{newGoalName}' has been created!");
+    }
+
+    static void ListGoals()
+    {
+        Console.Clear();
+        if ( _goalList.Count() != 0 ) {
+            Console.Clear();
+            foreach ( Goal goal in _goalList )
+            {
+                goal.DisplayGoal();
+            }
+            Console.WriteLine($"Current Points: {_totalPoints}");
+        } else {
+            Console.WriteLine("There are no goals to display.");
+        }
+    }
+
+    static void SaveGoals()
+    {
+        if ( _goalList.Count() != 0 )
+        {
+            Console.Write("Please give the goals file a name to be saved as (do NOT include .txt): ");
+            string filename = Console.ReadLine() + ".txt";
+            using (StreamWriter outputFile = new StreamWriter(filename))
+                {
+                    outputFile.WriteLine(_totalPoints);
+                    foreach ( Goal goal in _goalList )
+                    {
+                        if ( goal is SimpleGoal ) {
+                            outputFile.WriteLine($"SimpleGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.IsCompleted()}|{goal.GetPoints()}");
+                        } else if ( goal is EternalGoal ) {
+                            outputFile.WriteLine($"EternalGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.GetPoints()}");
+                        } else if ( goal is ChecklistGoal ) {
+                            ChecklistGoal ChecklistGoalForSave = (ChecklistGoal)goal;
+                            outputFile.WriteLine($"ChecklistGoal|{ChecklistGoalForSave.GetName()}|{ChecklistGoalForSave.GetDescription()}|{ChecklistGoalForSave.IsCompleted()}|{ChecklistGoalForSave.GetPoints()}|{ChecklistGoalForSave.GetNumberToComplete()}|{ChecklistGoalForSave.GetFinishPoints()}");
+                        }
+                    }
+                    Console.Clear();
+                    Console.WriteLine($"Goals saved under filename '{filename}'.");
+                }
+        } else {
+            Console.Clear();
+            Console.WriteLine("There are no goals to save! Try adding a goal or loading a file.");
+        }
+    }
+
+    static void LoadGoals()
+    {
+        Console.Write("Please type the name you want the file you want to load (do NOT include .txt): ");
+        string filename = Console.ReadLine() + ".txt";
+        string[] lines = System.IO.File.ReadAllLines(filename);
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split("|");
+            if ( parts[0] == "SimpleGoal" )
+            {
+                string goal_name = parts[1];
+                string goal_desc = parts[2];
+                bool goal_completedstatus = bool.Parse(parts[3]);
+                int goal_points = int.Parse(parts[4]);
+                Goal newSimpleGoal = new SimpleGoal(goal_name, goal_desc, goal_completedstatus, goal_points);
+                _goalList.Add(newSimpleGoal);
+            } else if ( parts[0] == "EternalGoal" )
+            {
+                string goal_name = parts[1];
+                string goal_desc = parts[2];
+                int goal_points = int.Parse(parts[3]);
+                Goal newEternalGoal = new EternalGoal(goal_name, goal_desc, goal_points);
+                _goalList.Add(newEternalGoal);
+            } else if ( parts[0] == "ChecklistGoal" )
+            {
+                string goal_name = parts[1];
+                string goal_desc = parts[2];
+                bool goal_completedstatus = bool.Parse(parts[3]);
+                int goal_points = int.Parse(parts[4]);
+                int goal_numtocomplete = int.Parse(parts[5]);
+                int goal_finishpoints = int.Parse(parts[6]);
+                Goal newChecklistGoal = new ChecklistGoal(goal_name, goal_desc, goal_completedstatus, goal_points, goal_numtocomplete, goal_finishpoints);
+                _goalList.Add(newChecklistGoal);
+            }
+        }
+    }
+
+    static void RecordEvent()
+    {
+        Console.Clear();
+        if ( _goalList.Count() != 0 ) {
+            Console.Clear();
+            foreach ( Goal goal in _goalList )
+            {
+                Console.WriteLine($"{_goalList.IndexOf(goal) + 1}. {goal.GetName()}");
+            }
+            Console.Write("\nPlease type the number of the goal you would like to mark as completed: ");
+            _userInput = Console.ReadLine();
+            foreach ( Goal goal in _goalList )
+            {
+                if ( int.Parse(_userInput) == ( _goalList.IndexOf(goal) + 1) )
+                {
+                    if ( goal.IsCompleted() == true )
+                    {
+                        Console.Clear();
+                        Console.WriteLine("This goal has already been completed; no new points can be awarded.");
+                    } else {
+                        goal.SetCompleted();
+                        _totalPoints += goal.GetPoints();
+                        Console.Clear();
+                        Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
+                    }
+                }
+            }
+        } else {
+            Console.Clear();
+            Console.WriteLine("There are no goals to record events for!");
         }
     }
 }

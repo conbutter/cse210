@@ -11,12 +11,12 @@ class EternalGoal : Goal
     }
 
     // Module declaration
-    public override bool isCompleted()
+    public override bool IsCompleted()
     {
         return false;
     }
 
-    public override void setCompleted()
+    public override void SetCompleted()
     {
         // No functionality
     }

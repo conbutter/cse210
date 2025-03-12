@@ -13,17 +13,15 @@ class SimpleGoal : Goal
     }
 
     // Module declaration
-    public override bool isCompleted()
+    public override bool IsCompleted()
     {
         return _isCompleted;
     }
 
-    public override void setCompleted()
+    public override void SetCompleted()
     {
         _isCompleted = true;
     }
-
-    
 
     public override void DisplayGoal()
     {
