@@ -10,6 +10,7 @@ class Program
 
     static void Main(string[] args)
     {
+        Console.Clear();
         while ( _isRunning == true )
         {
             Console.Write("\n-+- Goal Tracker Menu -+-\n 1. Create new goal\n 2. List all goals\n 3. Save goals\n 4. Load goals\n 5. Record event\n 6. Quit program\nPlease type the number of the option you wish to select. ");
@@ -90,22 +91,22 @@ class Program
             Console.Write("Please give the goals file a name to be saved as (do NOT include .txt): ");
             string filename = Console.ReadLine() + ".txt";
             using (StreamWriter outputFile = new StreamWriter(filename))
+            {
+                outputFile.WriteLine(_totalPoints);
+                foreach ( Goal goal in _goalList )
                 {
-                    outputFile.WriteLine(_totalPoints);
-                    foreach ( Goal goal in _goalList )
-                    {
-                        if ( goal is SimpleGoal ) {
-                            outputFile.WriteLine($"SimpleGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.IsCompleted()}|{goal.GetPoints()}");
-                        } else if ( goal is EternalGoal ) {
-                            outputFile.WriteLine($"EternalGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.GetPoints()}");
-                        } else if ( goal is ChecklistGoal ) {
-                            ChecklistGoal ChecklistGoalForSave = (ChecklistGoal)goal;
-                            outputFile.WriteLine($"ChecklistGoal|{ChecklistGoalForSave.GetName()}|{ChecklistGoalForSave.GetDescription()}|{ChecklistGoalForSave.IsCompleted()}|{ChecklistGoalForSave.GetPoints()}|{ChecklistGoalForSave.GetNumberToComplete()}|{ChecklistGoalForSave.GetFinishPoints()}");
-                        }
+                    if ( goal is SimpleGoal ) {
+                        outputFile.WriteLine($"SimpleGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.IsCompleted()}|{goal.GetPoints()}");
+                    } else if ( goal is EternalGoal ) {
+                        outputFile.WriteLine($"EternalGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.GetPoints()}");
+                    } else if ( goal is ChecklistGoal ) {
+                         ChecklistGoal ChecklistGoalForSave = (ChecklistGoal)goal;
+                        outputFile.WriteLine($"ChecklistGoal|{ChecklistGoalForSave.GetName()}|{ChecklistGoalForSave.GetDescription()}|{ChecklistGoalForSave.IsCompleted()}|{ChecklistGoalForSave.GetPoints()}|{ChecklistGoalForSave.GetNumberToComplete()}|{ChecklistGoalForSave.GetFinishPoints()}");
                     }
-                    Console.Clear();
-                    Console.WriteLine($"Goals saved under filename '{filename}'.");
                 }
+                Console.Clear();
+                Console.WriteLine($"Goals saved under filename '{filename}'.");
+            }
         } else {
             Console.Clear();
             Console.WriteLine("There are no goals to save! Try adding a goal or loading a file.");
