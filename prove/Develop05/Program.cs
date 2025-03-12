@@ -31,7 +31,6 @@ class Program
                 _unsavedChanges = true;
             } else if ( _userInput == "6" ) {
                 DeleteGoal();
-                _unsavedChanges = true;
             } else if ( _userInput == "7" ) {
                 UnsavedCheck();
                 _isRunning = false;
@@ -206,27 +205,34 @@ class Program
             {
                 Console.WriteLine($"{_goalList.IndexOf(goal) + 1}. {goal.GetName()}");
             }
-            Console.Write("\nPlease type the number of the goal you would like to mark as completed: ");
+            Console.Write("\nPlease type the number of the goal you would like to delete; type 0 to cancel: ");
             _userInput = Console.ReadLine();
+            bool goalRemoved = false;
+            int goalRemoveIndex = 0;
+            string removedGoalName = "";
             foreach ( Goal goal in _goalList )
             {
                 if ( int.Parse(_userInput) == ( _goalList.IndexOf(goal) + 1) )
-                {
-                    if ( goal.IsCompleted() == true )
                     {
-                        Console.Clear();
-                        Console.WriteLine("This goal has already been completed; no new points can be awarded.");
-                    } else {
-                        goal.SetCompleted();
-                        _totalPoints += goal.GetPoints();
-                        Console.Clear();
-                        Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
+                        goalRemoveIndex = _goalList.IndexOf(goal);
+                        removedGoalName = goal.GetName();
+                        goalRemoved = true;
                     }
-                }
+            }
+            if ( goalRemoved == true )
+            {
+                _goalList.RemoveAt(goalRemoveIndex);
+                Console.Clear();
+                Console.WriteLine($"Goal '{removedGoalName}' has been deleted.");
+                _unsavedChanges = true;
+                goalRemoved = true;
+            } else {
+                Console.Clear();
+                Console.WriteLine("Goal deletion cancelled; no changes were made.");
             }
         } else {
             Console.Clear();
-            Console.WriteLine("There are no goals to record events for!");
+            Console.WriteLine("There are no goals to delete!");
         }
     }
 
