@@ -18,7 +18,7 @@ class EternalGoal : Goal
 
     public override void SetCompleted()
     {
-        // No functionality
+        // No functionality; this goal cannot be set to completed, so this function performs nothing
     }
 
     public override void DisplayGoal()

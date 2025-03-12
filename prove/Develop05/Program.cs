@@ -14,7 +14,7 @@ class Program
         Console.Clear();
         while ( _isRunning == true )
         {
-            Console.Write("\n-+- Goal Tracker Menu -+-\n 1. Create new goal\n 2. List all goals\n 3. Save goals\n 4. Load goals\n 5. Record event\n 6. Quit program\nPlease type the number of the option you wish to select. ");
+            Console.Write("\n-+- Goal Tracker Menu -+-\n 1. Create new goal\n 2. List all goals\n 3. Save goals\n 4. Load goals\n 5. Record event\n 6. Delete goal\n 7. Quit program\nPlease type the number of the option you wish to select. ");
             _userInput = Console.ReadLine();
             if ( _userInput == "1" ) {
                 CreateNewGoal();
@@ -30,6 +30,9 @@ class Program
                 RecordEvent();
                 _unsavedChanges = true;
             } else if ( _userInput == "6" ) {
+                DeleteGoal();
+                _unsavedChanges = true;
+            } else if ( _userInput == "7" ) {
                 UnsavedCheck();
                 _isRunning = false;
                 Console.Clear();
@@ -162,6 +165,39 @@ class Program
     }
 
     static void RecordEvent()
+    {
+        Console.Clear();
+        if ( _goalList.Count() != 0 ) {
+            Console.Clear();
+            foreach ( Goal goal in _goalList )
+            {
+                Console.WriteLine($"{_goalList.IndexOf(goal) + 1}. {goal.GetName()}");
+            }
+            Console.Write("\nPlease type the number of the goal you would like to mark as completed: ");
+            _userInput = Console.ReadLine();
+            foreach ( Goal goal in _goalList )
+            {
+                if ( int.Parse(_userInput) == ( _goalList.IndexOf(goal) + 1) )
+                {
+                    if ( goal.IsCompleted() == true )
+                    {
+                        Console.Clear();
+                        Console.WriteLine("This goal has already been completed; no new points can be awarded.");
+                    } else {
+                        goal.SetCompleted();
+                        _totalPoints += goal.GetPoints();
+                        Console.Clear();
+                        Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
+                    }
+                }
+            }
+        } else {
+            Console.Clear();
+            Console.WriteLine("There are no goals to record events for!");
+        }
+    }
+
+    static void DeleteGoal()
     {
         Console.Clear();
         if ( _goalList.Count() != 0 ) {
