@@ -7,6 +7,7 @@ class Program
     private static string _userInput;
     private static List<Goal> _goalList = new List<Goal>();
     private static int _totalPoints;
+    private static bool _unsavedChanges = false;
 
     static void Main(string[] args)
     {
@@ -17,15 +18,19 @@ class Program
             _userInput = Console.ReadLine();
             if ( _userInput == "1" ) {
                 CreateNewGoal();
+                _unsavedChanges = true;
             } else if ( _userInput == "2" ) {
                 ListGoals();
             } else if ( _userInput == "3" ) {
                 SaveGoals();
             } else if ( _userInput == "4" ) {
+                UnsavedCheck();
                 LoadGoals();
             } else if ( _userInput == "5" ) {
                 RecordEvent();
+                _unsavedChanges = true;
             } else if ( _userInput == "6" ) {
+                UnsavedCheck();
                 _isRunning = false;
                 Console.Clear();
             }
@@ -100,12 +105,13 @@ class Program
                     } else if ( goal is EternalGoal ) {
                         outputFile.WriteLine($"EternalGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.GetPoints()}");
                     } else if ( goal is ChecklistGoal ) {
-                         ChecklistGoal ChecklistGoalForSave = (ChecklistGoal)goal;
+                        ChecklistGoal ChecklistGoalForSave = (ChecklistGoal)goal;
                         outputFile.WriteLine($"ChecklistGoal|{ChecklistGoalForSave.GetName()}|{ChecklistGoalForSave.GetDescription()}|{ChecklistGoalForSave.IsCompleted()}|{ChecklistGoalForSave.GetPoints()}|{ChecklistGoalForSave.GetNumberToComplete()}|{ChecklistGoalForSave.GetFinishPoints()}");
                     }
                 }
                 Console.Clear();
                 Console.WriteLine($"Goals saved under filename '{filename}'.");
+            _unsavedChanges = false;
             }
         } else {
             Console.Clear();
@@ -118,9 +124,12 @@ class Program
         Console.Write("Please type the name you want the file you want to load (do NOT include .txt): ");
         string filename = Console.ReadLine() + ".txt";
         string[] lines = System.IO.File.ReadAllLines(filename);
-        foreach (string line in lines)
+        int goals_loaded = 0;
+        for (int i = 1; i < lines.Length; i++)
         {
-            string[] parts = line.Split("|");
+            goals_loaded += 1;
+            _totalPoints = int.Parse(lines[0]);
+            string[] parts = lines[i].Split("|");
             if ( parts[0] == "SimpleGoal" )
             {
                 string goal_name = parts[1];
@@ -148,6 +157,8 @@ class Program
                 _goalList.Add(newChecklistGoal);
             }
         }
+        Console.Clear();
+        Console.WriteLine($"{goals_loaded} goals loaded from '{filename}'.");
     }
 
     static void RecordEvent()
@@ -181,5 +192,19 @@ class Program
             Console.Clear();
             Console.WriteLine("There are no goals to record events for!");
         }
+    }
+
+    static void UnsavedCheck()
+    {
+        if ( _unsavedChanges == true ) 
+            {
+                Console.Write($"--[!]-- WARNING --[!]--\nYour current goal list has unsaved changes!\nWould you like to save your current list first? (y/n) ");
+                _userInput = Console.ReadLine();
+                if ( _userInput == "y" )
+                {
+                    SaveGoals();
+                    Console.WriteLine("Goals saved.");
+                }
+            }
     }
 }
