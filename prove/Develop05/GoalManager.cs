@@ -65,6 +65,47 @@ static class GoalManager
         }
     }
 
+    public static List<Goal> RecordEvent(List<Goal> goalList, int totalPoints)
+    {
+        Console.Clear();
+        if ( goalList.Count() != 0 ) {
+            Console.Clear();
+            foreach ( Goal goal in goalList )
+            {
+                Console.WriteLine($"{goalList.IndexOf(goal) + 1}. {goal.GetName()}");
+            }
+            Console.Write("\nPlease type the number of the goal you want to record an event for: ");
+            string userInput = Console.ReadLine();
+            foreach ( Goal goal in goalList )
+            {
+                if ( int.Parse(userInput) == ( goalList.IndexOf(goal) + 1) )
+                {
+                    if ( goal.IsCompleted() == true )
+                    {
+                        Console.Clear();
+                        Console.WriteLine("This goal has already been completed; no new points can be awarded.");
+                    } else {
+                       Program.SetUnsaved();
+                        if ( goal is not NegativeGoal ) {
+                            goal.SetCompleted();
+                            Program.AdjustPoints(goal.GetPoints(), false);
+                            Console.Clear();
+                            Console.WriteLine($"Congrats! You now have {totalPoints + goal.GetPoints()} points.");
+                        } else {
+                            Program.AdjustPoints(goal.GetPoints(), true);
+                            Console.Clear();
+                            Console.WriteLine($"{goal.GetPoints()} removed; you now have {totalPoints - goal.GetPoints()} points.\nDon't worry; you'll be back on your feet in no time!");
+                        }
+                    }
+                }
+            }
+        } else {
+            Console.Clear();
+            Console.WriteLine("There are no goals to record events for!");
+        }
+        return goalList;
+    }
+
     public static List<Goal> DeleteGoal(List<Goal> goalList)
     {
         Console.Clear();

@@ -26,7 +26,7 @@ class Program
                 UnsavedCheck();
                 LoadGoals();
             } else if ( _userInput == "5" ) {
-                RecordEvent();
+                GoalManager.RecordEvent(_goalList, _totalPoints);
                 _unsavedChanges = true;
             } else if ( _userInput == "6" ) {
                 GoalManager.DeleteGoal(_goalList);
@@ -119,43 +119,12 @@ class Program
         Console.WriteLine($"{goalsLoaded} goals loaded from '{filename}'.");
     }
 
-    static void RecordEvent()
+    public static void AdjustPoints(int addPoints, bool negative)
     {
-        Console.Clear();
-        if ( _goalList.Count() != 0 ) {
-            Console.Clear();
-            foreach ( Goal goal in _goalList )
-            {
-                Console.WriteLine($"{_goalList.IndexOf(goal) + 1}. {goal.GetName()}");
-            }
-            Console.Write("\nPlease type the number of the goal you want to record an event for: ");
-            _userInput = Console.ReadLine();
-            foreach ( Goal goal in _goalList )
-            {
-                if ( int.Parse(_userInput) == ( _goalList.IndexOf(goal) + 1) )
-                {
-                    if ( goal.IsCompleted() == true )
-                    {
-                        Console.Clear();
-                        Console.WriteLine("This goal has already been completed; no new points can be awarded.");
-                    } else {
-                        _unsavedChanges =  true;
-                        if ( goal is not NegativeGoal ) {
-                            goal.SetCompleted();
-                            _totalPoints += goal.GetPoints();
-                            Console.Clear();
-                            Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
-                        } else {
-                            _totalPoints -= goal.GetPoints();
-                            Console.Clear();
-                            Console.WriteLine($"{goal.GetPoints()} removed; you now have {_totalPoints} points.\nDon't worry; you'll be back on your feet in no time!");
-                        }
-                    }
-                }
-            }
+        if ( negative == true ) {
+            _totalPoints -= addPoints;
         } else {
-            Console.Clear();
-            Console.WriteLine("There are no goals to record events for!");
+            _totalPoints += addPoints;
         }
     }
 
