@@ -17,10 +17,9 @@ class Program
             Console.Write("\n-+- Goal Tracker Menu -+-\n 1. Create new goal\n 2. List all goals\n 3. Save goals\n 4. Load goals\n 5. Record event\n 6. Delete goal\n 7. Quit program\nPlease type the number of the option you wish to select. ");
             _userInput = Console.ReadLine();
             if ( _userInput == "1" ) {
-                CreateNewGoal();
-                _unsavedChanges = true;
+                _goalList = GoalManager.CreateNewGoal(_goalList);
             } else if ( _userInput == "2" ) {
-                ListGoals();
+                GoalManager.ListGoals(_goalList, _totalPoints);
             } else if ( _userInput == "3" ) {
                 SaveGoals();
             } else if ( _userInput == "4" ) {
@@ -30,69 +29,12 @@ class Program
                 RecordEvent();
                 _unsavedChanges = true;
             } else if ( _userInput == "6" ) {
-                DeleteGoal();
+                GoalManager.DeleteGoal(_goalList);
             } else if ( _userInput == "7" ) {
                 UnsavedCheck();
                 _isRunning = false;
                 Console.Clear();
             }
-        }
-    }
-
-    static void CreateNewGoal()
-    {
-        Console.Clear();
-        int goalType = 0;
-        Console.Write("What type of goal would you like to make?\n 1. Simple Goal\n 2. Eternal Goal (constant, cannot be marked as completed)\n 3. Checklist Goal (rewards points per step, rewards bonus per full completion)\n 4. Negative Goal (deducts points per event)\nPlease type the number of the option you wish to select. ");
-        _userInput = Console.ReadLine();
-        if ( int.Parse(_userInput) >= 1 && int.Parse(_userInput) <= 4 ) {
-            goalType = int.Parse(_userInput);
-        } 
-        Console.Write("Please type the name of the goal: ");
-        string newGoalName = Console.ReadLine();
-        Console.Write("Please type the description of the goal: ");
-        string newGoalDesc = Console.ReadLine();
-        if ( goalType == 1 ) {
-            Console.Write("Please type the point value of the goal: ");
-            int newGoalPoints = int.Parse(Console.ReadLine());
-            Goal newSimpleGoal = new SimpleGoal(newGoalName, newGoalDesc, false, newGoalPoints);
-            _goalList.Add(newSimpleGoal);
-        } else if ( goalType == 2 ) {
-            Console.Write("Please type the point value of the goal: ");
-            int newGoalPoints = int.Parse(Console.ReadLine());
-            Goal newEternalGoal = new EternalGoal(newGoalName, newGoalDesc, newGoalPoints);
-            _goalList.Add(newEternalGoal);
-        } else if ( goalType == 3 ) {
-            Console.Write("Please type the point value of the goal: ");
-            int newGoalPoints = int.Parse(Console.ReadLine());
-            Console.Write("Please type the number of completions required for the bonus: ");
-            int newGoalNumToComplete = int.Parse(Console.ReadLine());
-            Console.Write("Now please type the bonus point value: ");
-            int newGoalFinishPoints = int.Parse(Console.ReadLine());
-            Goal newChecklistGoal = new ChecklistGoal(newGoalName, newGoalDesc, false, newGoalPoints, newGoalNumToComplete, newGoalFinishPoints);
-            _goalList.Add(newChecklistGoal);
-        } else if ( goalType == 4 ) {
-            Console.Write("Please type the point value of the goal (this will be deducted for each goal event): ");
-            int newGoalPoints = int.Parse(Console.ReadLine());
-            Goal newNegativeGoal = new NegativeGoal(newGoalName, newGoalDesc, newGoalPoints);
-            _goalList.Add(newNegativeGoal);
-        }
-        Console.Clear();
-        Console.WriteLine($"The goal '{newGoalName}' has been created!");
-    }
-
-    static void ListGoals()
-    {
-        Console.Clear();
-        if ( _goalList.Count() != 0 ) {
-            Console.Clear();
-            foreach ( Goal goal in _goalList )
-            {
-                goal.DisplayGoal();
-            }
-            Console.WriteLine($"Current Points: {_totalPoints}");
-        } else {
-            Console.WriteLine("There are no goals to display.");
         }
     }
 
@@ -217,44 +159,9 @@ class Program
         }
     }
 
-    static void DeleteGoal()
+    public static void SetUnsaved()
     {
-        Console.Clear();
-        if ( _goalList.Count() != 0 ) {
-            Console.Clear();
-            foreach ( Goal goal in _goalList )
-            {
-                Console.WriteLine($"{_goalList.IndexOf(goal) + 1}. {goal.GetName()}");
-            }
-            Console.Write("\nPlease type the number of the goal you would like to delete; type 0 to cancel: ");
-            _userInput = Console.ReadLine();
-            bool goalRemoved = false;
-            int goalRemoveIndex = 0;
-            string removedGoalName = "";
-            foreach ( Goal goal in _goalList )
-            {
-                if ( int.Parse(_userInput) == ( _goalList.IndexOf(goal) + 1) )
-                    {
-                        goalRemoveIndex = _goalList.IndexOf(goal);
-                        removedGoalName = goal.GetName();
-                        goalRemoved = true;
-                    }
-            }
-            if ( goalRemoved == true )
-            {
-                _goalList.RemoveAt(goalRemoveIndex);
-                Console.Clear();
-                Console.WriteLine($"Goal '{removedGoalName}' has been deleted.");
-                _unsavedChanges = true;
-                goalRemoved = true;
-            } else {
-                Console.Clear();
-                Console.WriteLine("Goal deletion cancelled; no changes were made.");
-            }
-        } else {
-            Console.Clear();
-            Console.WriteLine("There are no goals to delete!");
-        }
+        _unsavedChanges = true;
     }
 
     static void UnsavedCheck()
