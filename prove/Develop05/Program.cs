@@ -42,27 +42,27 @@ class Program
     static void CreateNewGoal()
     {
         Console.Clear();
-        int goal_type = 0;
+        int goalType = 0;
         Console.Write("What type of goal would you like to make?\n 1. Simple Goal\n 2. Eternal Goal (constant, cannot be marked as completed)\n 3. Checklist Goal (rewards points per step, rewards bonus per full completion)\n 4. Negative Goal (deducts points per event)\nPlease type the number of the option you wish to select. ");
         _userInput = Console.ReadLine();
         if ( int.Parse(_userInput) >= 1 && int.Parse(_userInput) <= 4 ) {
-            goal_type = int.Parse(_userInput);
+            goalType = int.Parse(_userInput);
         } 
         Console.Write("Please type the name of the goal: ");
         string newGoalName = Console.ReadLine();
         Console.Write("Please type the description of the goal: ");
         string newGoalDesc = Console.ReadLine();
-        if ( goal_type == 1 ) {
+        if ( goalType == 1 ) {
             Console.Write("Please type the point value of the goal: ");
             int newGoalPoints = int.Parse(Console.ReadLine());
             Goal newSimpleGoal = new SimpleGoal(newGoalName, newGoalDesc, false, newGoalPoints);
             _goalList.Add(newSimpleGoal);
-        } else if ( goal_type == 2 ) {
+        } else if ( goalType == 2 ) {
             Console.Write("Please type the point value of the goal: ");
             int newGoalPoints = int.Parse(Console.ReadLine());
             Goal newEternalGoal = new EternalGoal(newGoalName, newGoalDesc, newGoalPoints);
             _goalList.Add(newEternalGoal);
-        } else if ( goal_type == 3 ) {
+        } else if ( goalType == 3 ) {
             Console.Write("Please type the point value of the goal: ");
             int newGoalPoints = int.Parse(Console.ReadLine());
             Console.Write("Please type the number of completions required for the bonus: ");
@@ -71,7 +71,7 @@ class Program
             int newGoalFinishPoints = int.Parse(Console.ReadLine());
             Goal newChecklistGoal = new ChecklistGoal(newGoalName, newGoalDesc, false, newGoalPoints, newGoalNumToComplete, newGoalFinishPoints);
             _goalList.Add(newChecklistGoal);
-        } else if ( goal_type == 4 ) {
+        } else if ( goalType == 4 ) {
             Console.Write("Please type the point value of the goal (this will be deducted for each goal event): ");
             int newGoalPoints = int.Parse(Console.ReadLine());
             Goal newNegativeGoal = new NegativeGoal(newGoalName, newGoalDesc, newGoalPoints);
@@ -133,48 +133,48 @@ class Program
         Console.Write("Please type the name you want the file you want to load (do NOT include .txt): ");
         string filename = Console.ReadLine() + ".txt";
         string[] lines = System.IO.File.ReadAllLines(filename);
-        int goals_loaded = 0;
+        int goalsLoaded = 0;
         for (int i = 1; i < lines.Length; i++)
         {
-            goals_loaded += 1;
+            goalsLoaded += 1;
             _totalPoints = int.Parse(lines[0]);
             string[] parts = lines[i].Split("|");
             if ( parts[0] == "SimpleGoal" )
             {
-                string goal_name = parts[1];
-                string goal_desc = parts[2];
-                bool goal_completedstatus = bool.Parse(parts[3]);
-                int goal_points = int.Parse(parts[4]);
-                Goal newSimpleGoal = new SimpleGoal(goal_name, goal_desc, goal_completedstatus, goal_points);
+                string goalName = parts[1];
+                string goalDesc = parts[2];
+                bool goalCompletedstatus = bool.Parse(parts[3]);
+                int goalPoints = int.Parse(parts[4]);
+                Goal newSimpleGoal = new SimpleGoal(goalName, goalDesc, goalCompletedstatus, goalPoints);
                 _goalList.Add(newSimpleGoal);
             } else if ( parts[0] == "EternalGoal" )
             {
-                string goal_name = parts[1];
-                string goal_desc = parts[2];
-                int goal_points = int.Parse(parts[3]);
-                Goal newEternalGoal = new EternalGoal(goal_name, goal_desc, goal_points);
+                string goalName = parts[1];
+                string goalDesc = parts[2];
+                int goalPoints = int.Parse(parts[3]);
+                Goal newEternalGoal = new EternalGoal(goalName, goalDesc, goalPoints);
                 _goalList.Add(newEternalGoal);
             } else if ( parts[0] == "ChecklistGoal" )
             {
-                string goal_name = parts[1];
-                string goal_desc = parts[2];
-                bool goal_completedstatus = bool.Parse(parts[3]);
-                int goal_points = int.Parse(parts[4]);
-                int goal_numtocomplete = int.Parse(parts[5]);
-                int goal_finishpoints = int.Parse(parts[6]);
-                Goal newChecklistGoal = new ChecklistGoal(goal_name, goal_desc, goal_completedstatus, goal_points, goal_numtocomplete, goal_finishpoints);
+                string goalName = parts[1];
+                string goalDesc = parts[2];
+                bool goalCompletedstatus = bool.Parse(parts[3]);
+                int goalPoints = int.Parse(parts[4]);
+                int goalNumtocomplete = int.Parse(parts[5]);
+                int goalFinishpoints = int.Parse(parts[6]);
+                Goal newChecklistGoal = new ChecklistGoal(goalName, goalDesc, goalCompletedstatus, goalPoints, goalNumtocomplete, goalFinishpoints);
                 _goalList.Add(newChecklistGoal);
             } else if ( parts[0] == "NegativeGoal")
             {
-                string goal_name = parts[1];
-                string goal_desc = parts[2];
-                int goal_points = int.Parse(parts[3]);
-                Goal newNegativeGoal = new NegativeGoal(goal_name, goal_desc, goal_points);
+                string goalName = parts[1];
+                string goalDesc = parts[2];
+                int goalPoints = int.Parse(parts[3]);
+                Goal newNegativeGoal = new NegativeGoal(goalName, goalDesc, goalPoints);
                 _goalList.Add(newNegativeGoal);
             }
         }
         Console.Clear();
-        Console.WriteLine($"{goals_loaded} goals loaded from '{filename}'.");
+        Console.WriteLine($"{goalsLoaded} goals loaded from '{filename}'.");
     }
 
     static void RecordEvent()
