@@ -76,28 +76,33 @@ static class GoalManager
             }
             Console.Write("\nPlease type the number of the goal you want to record an event for: ");
             string userInput = Console.ReadLine();
-            foreach ( Goal goal in goalList )
-            {
-                if ( int.Parse(userInput) == ( goalList.IndexOf(goal) + 1) )
+            if ( int.TryParse(userInput, out int number) == true ) {
+                foreach ( Goal goal in goalList )
                 {
-                    if ( goal.IsCompleted() == true )
+                    if ( int.Parse(userInput) == ( goalList.IndexOf(goal) + 1) )
                     {
-                        Console.Clear();
-                        Console.WriteLine("This goal has already been completed; no new points can be awarded.");
-                    } else {
-                       Program.SetUnsaved();
-                        if ( goal is not NegativeGoal ) {
-                            goal.SetCompleted();
-                            Program.AdjustPoints(goal.GetPoints(), false);
+                        if ( goal.IsCompleted() == true )
+                        {
                             Console.Clear();
-                            Console.WriteLine($"Congrats! You now have {totalPoints + goal.GetPoints()} points.");
+                            Console.WriteLine("This goal has already been completed; no new points can be awarded.");
                         } else {
-                            Program.AdjustPoints(goal.GetPoints(), true);
-                            Console.Clear();
-                            Console.WriteLine($"{goal.GetPoints()} removed; you now have {totalPoints - goal.GetPoints()} points.\nDon't worry; you'll be back on your feet in no time!");
+                        Program.SetUnsaved();
+                            if ( goal is not NegativeGoal ) {
+                                goal.SetCompleted();
+                                Program.AdjustPoints(goal.GetPoints(), false);
+                                Console.Clear();
+                                Console.WriteLine($"Congrats! You now have {totalPoints + goal.GetPoints()} points.");
+                            } else {
+                                Program.AdjustPoints(goal.GetPoints(), true);
+                                Console.Clear();
+                                Console.WriteLine($"{goal.GetPoints()} removed; you now have {totalPoints - goal.GetPoints()} points.\nDon't worry; you'll be back on your feet in no time!");
+                            }
                         }
                     }
                 }
+            } else {
+                Console.Clear();
+                Console.WriteLine("[!] You did not type a number. Please try again with an acceptable input (number in list range).");
             }
         } else {
             Console.Clear();
@@ -120,25 +125,30 @@ static class GoalManager
             bool goalRemoved = false;
             int goalRemoveIndex = 0;
             string removedGoalName = "";
-            foreach ( Goal goal in goalList )
-            {
-                if ( int.Parse(userInput) == ( goalList.IndexOf(goal) + 1) )
-                    {
-                        goalRemoveIndex = goalList.IndexOf(goal);
-                        removedGoalName = goal.GetName();
-                        goalRemoved = true;
-                    }
-            }
-            if ( goalRemoved == true )
-            {
-                goalList.RemoveAt(goalRemoveIndex);
-                Console.Clear();
-                Console.WriteLine($"Goal '{removedGoalName}' has been deleted.");
-                Program.SetUnsaved();
-                goalRemoved = true;
+            if ( int.TryParse(userInput, out int number) == true ) {
+                foreach ( Goal goal in goalList )
+                {
+                    if ( int.Parse(userInput) == ( goalList.IndexOf(goal) + 1) )
+                        {
+                            goalRemoveIndex = goalList.IndexOf(goal);
+                            removedGoalName = goal.GetName();
+                            goalRemoved = true;
+                        }
+                }
+                if ( goalRemoved == true )
+                {
+                    goalList.RemoveAt(goalRemoveIndex);
+                    Console.Clear();
+                    Console.WriteLine($"Goal '{removedGoalName}' has been deleted.");
+                    Program.SetUnsaved();
+                    goalRemoved = true;
+                } else {
+                    Console.Clear();
+                    Console.WriteLine("Goal deletion cancelled; no changes were made.");
+                }
             } else {
                 Console.Clear();
-                Console.WriteLine("Goal deletion cancelled; no changes were made.");
+                Console.WriteLine("[!] You did not type a number. Please try again with an acceptable input (number in list range).");
             }
         } else {
             Console.Clear();

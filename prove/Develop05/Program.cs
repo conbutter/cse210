@@ -136,14 +136,25 @@ class Program
     static void UnsavedCheck()
     {
         if ( _unsavedChanges == true ) 
+        {
+            Console.Write($"--[!]-- WARNING --[!]--\nYour current goal list has unsaved changes!\nWould you like to save your current list first? (y/n) ");
+            _userInput = Console.ReadLine();
+            if ( _userInput == "y" )
             {
-                Console.Write($"--[!]-- WARNING --[!]--\nYour current goal list has unsaved changes!\nWould you like to save your current list first? (y/n) ");
-                _userInput = Console.ReadLine();
-                if ( _userInput == "y" )
-                {
-                    SaveGoals();
-                    Console.WriteLine("Goals saved.");
-                }
+                SaveGoals();
+                Console.WriteLine("Goals saved.");
             }
+        }
+    }
+
+    public static bool VerifyInput(string input)
+    {
+        if (int.TryParse(input, out int number) == true)
+            {
+                return true;
+            } else {
+                return false;
+            }
+                
     }
 }
