@@ -23,6 +23,6 @@ class EternalGoal : Goal
 
     public override void DisplayGoal()
     {
-        Console.WriteLine($"[E] {_name} ({_description}) - {_points} points");
+        Console.WriteLine($"[E] {_name} ({_description}) - {_points} points per event");
     }
 }

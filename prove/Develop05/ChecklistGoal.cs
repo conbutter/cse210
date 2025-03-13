@@ -50,9 +50,9 @@ class ChecklistGoal : Goal
     public override void DisplayGoal()
     {
         if ( _isCompleted == true ) {
-            Console.WriteLine($"[X] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points - {_finishPoints} bonus");
+            Console.WriteLine($"[X] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points per step - {_finishPoints} bonus");
         } else {
-            Console.WriteLine($"[ ] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points - {_finishPoints} bonus");
+            Console.WriteLine($"[ ] ({_completedSoFar}/{_numberToComplete}) {_name} ({_description}) - {_points} points per step - {_finishPoints} bonus");
         }
     }
 }

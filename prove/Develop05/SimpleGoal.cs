@@ -26,9 +26,9 @@ class SimpleGoal : Goal
     public override void DisplayGoal()
     {
         if ( _isCompleted == true ) {
-            Console.WriteLine($"[X] {_name} ({_description}) - {_points} points");
+            Console.WriteLine($"[X] {_name} ({_description}) - {_points} points upon completion");
         } else {
-            Console.WriteLine($"[ ] {_name} ({_description}) - {_points} points");
+            Console.WriteLine($"[ ] {_name} ({_description}) - {_points} points upon completion");
         }
     }
 }
