@@ -42,35 +42,40 @@ class Program
     static void CreateNewGoal()
     {
         Console.Clear();
-        int goalType = 0;
-        Console.Write("What type of goal would you like to make?\n 1. Simple Goal\n 2. Eternal Goal \n 3. Checklist Goal\nPlease type the number of the option you wish to select. ");
+        int goal_type = 0;
+        Console.Write("What type of goal would you like to make?\n 1. Simple Goal\n 2. Eternal Goal (constant, cannot be marked as completed)\n 3. Checklist Goal (rewards points per step, rewards bonus per full completion)\n 4. Negative Goal (deducts points per event)\nPlease type the number of the option you wish to select. ");
         _userInput = Console.ReadLine();
-        if ( _userInput == "1" ) {
-            goalType = 1;
-        } else if ( _userInput == "2" ) {
-            goalType = 2;
-        } else if ( _userInput == "3" ) {
-            goalType = 3;
-        }
+        if ( int.Parse(_userInput) >= 1 && int.Parse(_userInput) <= 4 ) {
+            goal_type = int.Parse(_userInput);
+        } 
         Console.Write("Please type the name of the goal: ");
         string newGoalName = Console.ReadLine();
         Console.Write("Please type the description of the goal: ");
         string newGoalDesc = Console.ReadLine();
-        Console.Write("Please type the point value of the goal: ");
-        int newGoalPoints = int.Parse(Console.ReadLine());
-        if ( goalType == 1 ) {
+        if ( goal_type == 1 ) {
+            Console.Write("Please type the point value of the goal: ");
+            int newGoalPoints = int.Parse(Console.ReadLine());
             Goal newSimpleGoal = new SimpleGoal(newGoalName, newGoalDesc, false, newGoalPoints);
             _goalList.Add(newSimpleGoal);
-        } else if ( goalType == 2 ) {
+        } else if ( goal_type == 2 ) {
+            Console.Write("Please type the point value of the goal: ");
+            int newGoalPoints = int.Parse(Console.ReadLine());
             Goal newEternalGoal = new EternalGoal(newGoalName, newGoalDesc, newGoalPoints);
             _goalList.Add(newEternalGoal);
-        } else if ( goalType == 3 ) {
+        } else if ( goal_type == 3 ) {
+            Console.Write("Please type the point value of the goal: ");
+            int newGoalPoints = int.Parse(Console.ReadLine());
             Console.Write("Please type the number of completions required for the bonus: ");
             int newGoalNumToComplete = int.Parse(Console.ReadLine());
             Console.Write("Now please type the bonus point value: ");
             int newGoalFinishPoints = int.Parse(Console.ReadLine());
             Goal newChecklistGoal = new ChecklistGoal(newGoalName, newGoalDesc, false, newGoalPoints, newGoalNumToComplete, newGoalFinishPoints);
             _goalList.Add(newChecklistGoal);
+        } else if ( goal_type == 4 ) {
+            Console.Write("Please type the point value of the goal (this will be deducted for each goal event): ");
+            int newGoalPoints = int.Parse(Console.ReadLine());
+            Goal newNegativeGoal = new NegativeGoal(newGoalName, newGoalDesc, newGoalPoints);
+            _goalList.Add(newNegativeGoal);
         }
         Console.Clear();
         Console.WriteLine($"The goal '{newGoalName}' has been created!");
@@ -109,6 +114,8 @@ class Program
                     } else if ( goal is ChecklistGoal ) {
                         ChecklistGoal ChecklistGoalForSave = (ChecklistGoal)goal;
                         outputFile.WriteLine($"ChecklistGoal|{ChecklistGoalForSave.GetName()}|{ChecklistGoalForSave.GetDescription()}|{ChecklistGoalForSave.IsCompleted()}|{ChecklistGoalForSave.GetPoints()}|{ChecklistGoalForSave.GetNumberToComplete()}|{ChecklistGoalForSave.GetFinishPoints()}");
+                    } else if ( goal is NegativeGoal ) {
+                        outputFile.WriteLine($"NegativeGoal|{goal.GetName()}|{goal.GetDescription()}|{goal.GetPoints()}");
                     }
                 }
                 Console.Clear();
@@ -157,6 +164,13 @@ class Program
                 int goal_finishpoints = int.Parse(parts[6]);
                 Goal newChecklistGoal = new ChecklistGoal(goal_name, goal_desc, goal_completedstatus, goal_points, goal_numtocomplete, goal_finishpoints);
                 _goalList.Add(newChecklistGoal);
+            } else if ( parts[0] == "NegativeGoal")
+            {
+                string goal_name = parts[1];
+                string goal_desc = parts[2];
+                int goal_points = int.Parse(parts[3]);
+                Goal newNegativeGoal = new NegativeGoal(goal_name, goal_desc, goal_points);
+                _goalList.Add(newNegativeGoal);
             }
         }
         Console.Clear();
@@ -172,7 +186,7 @@ class Program
             {
                 Console.WriteLine($"{_goalList.IndexOf(goal) + 1}. {goal.GetName()}");
             }
-            Console.Write("\nPlease type the number of the goal you would like to mark as completed: ");
+            Console.Write("\nPlease type the number of the goal you want to record an event for: ");
             _userInput = Console.ReadLine();
             foreach ( Goal goal in _goalList )
             {
@@ -183,10 +197,17 @@ class Program
                         Console.Clear();
                         Console.WriteLine("This goal has already been completed; no new points can be awarded.");
                     } else {
-                        goal.SetCompleted();
-                        _totalPoints += goal.GetPoints();
-                        Console.Clear();
-                        Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
+                        _unsavedChanges =  true;
+                        if ( goal is not NegativeGoal ) {
+                            goal.SetCompleted();
+                            _totalPoints += goal.GetPoints();
+                            Console.Clear();
+                            Console.WriteLine($"Congrats! You now have {_totalPoints} points.");
+                        } else {
+                            _totalPoints -= goal.GetPoints();
+                            Console.Clear();
+                            Console.WriteLine($"{goal.GetPoints()} removed; you now have {_totalPoints} points.\nDon't worry; you'll be back on your feet in no time!");
+                        }
                     }
                 }
             }
