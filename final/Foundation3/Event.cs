@@ -1,21 +1,21 @@
 using System;
 
-class Event
+abstract class Event
 {
     // Attribute declaration
     private string _title;
     private string _desc;
-    private DateTime _date;
-    private DateTime _time;
+    private string _date;
+    private string _time;
     private Address _address;
 
     // Constructor declaration
-    public Event(string title, string desc, DateTime date, DateTime time, Address address)
+    public Event(string title, string desc, string date, string time, Address address)
     {
         _title = title;
         _desc = desc;
-        this._date = date;
-        this._time = time;
+        _date = date;
+        _time = time;
         _address = address;
     }
 
@@ -27,15 +27,37 @@ class Event
 
     public void DisplayFull()
     {
-        //  Full details - Lists all of the above  (title, description, date, time, and address)
-        //                 plus type of event and information specific to that event type.
-        //                 For lectures, this includes the speaker name and capacity.
-        //                 For receptions this includes an email for RSVP.
-        //                 For outdoor gatherings, this includes a statement of the weather.
+        string eventType = GetEventType();
+        Console.WriteLine($"{_title}\n- {_desc}\nUpcoming {eventType}\n{_date} @ {_time} @ {_address.GetAddress()}");
+        if ( (eventType == "Lecture") || (eventType == "Reception") || ( eventType == "Gathering" ))
+        {
+            this.DisplayAdditional();
+        }
     }
+
+    public abstract void DisplayAdditional();
 
     public void DisplayShort()
     {
-        // Short description - Lists the type of event, title, and the date.
+        string eventType = GetEventType();
+        Console.WriteLine($"{eventType} | {_title} | {_date} | {_date}");
+    }
+
+    public string GetEventType()
+    {
+        string eventType = GetEventType();
+
+        if (this is Lecture)
+        {
+            eventType = "Lecture";
+        } else if (this is Reception)
+        {
+            eventType = "Reception";
+        } else if (this is Gathering)
+        {
+            eventType = "Gathering";
+        }
+
+        return eventType;
     }
 }

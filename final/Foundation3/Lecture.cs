@@ -7,14 +7,14 @@ class Lecture : Event
     private int _capacity;
 
     // Constructor declaration
-    public Lecture(string title, string desc, DateTime date, DateTime time, Address address, string speaker, int capacity) : base(title, desc, date, time, address)
+    public Lecture(string title, string desc, string date, string time, Address address, string speaker, int capacity) : base(title, desc, date, time, address)
     {
         _speaker = speaker;
         _capacity = capacity;
     }
 
     // Module declaration
-    public void DisplayAdditional()
+    public override void DisplayAdditional()
     {
         Console.WriteLine($"Speaker: {_speaker} | Capacity {_capacity}");
     }
