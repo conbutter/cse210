@@ -12,5 +12,8 @@ class Gathering : Event
     }
 
     // Module declaration
-    // [!] No additional modules to declare!
+    public void DisplayAdditional()
+    {
+        Console.WriteLine($"Anticipated Weather: {_forecast}");
+    }
 }

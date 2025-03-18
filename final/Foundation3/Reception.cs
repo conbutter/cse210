@@ -12,5 +12,8 @@ class Reception : Event
     }
 
     // Module declaration
-    // [!] No additional modules to declare!
+    public void DisplayAdditional()
+    {
+        Console.WriteLine($"RSVP Required, Contact Email: {_rsvpEmail}");
+    }
 }
