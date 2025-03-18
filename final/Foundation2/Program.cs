@@ -8,9 +8,7 @@ class Program
         CreateOrders();
         foreach ( Order order in _orders )
         {
-            Console.WriteLine(order.GetPackingLabel());
-            Console.WriteLine(order.GetShippingLabel());
-            Console.WriteLine(order.GetTotalCost());
+            // Display contents here
         }
     }
 
