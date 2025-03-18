@@ -7,7 +7,7 @@ class Order
     private Customer _customer;
 
     // Constructor declaration
-    public Order(List<Product> products, Customer customer)
+    public Order(Customer customer, List<Product> products)
     {
         _products = products;
         _customer = customer;

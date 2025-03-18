@@ -7,9 +7,10 @@ class Customer
     private Address _address;
 
     // Constructor declaration
-    public Customer(string name, Address address)
+    public Customer(string name, string streetAddress, string city, string state, string country)
     {
         _name = name;
+        Address address = new Address(streetAddress, city, state, country);
         _address = address;
     }
 
