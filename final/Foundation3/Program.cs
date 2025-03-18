@@ -2,9 +2,12 @@ using System;
 
 class Program
 {
+    private static List<Event> _events = new List<Event>();
+
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Foundation3 World!");
+        // Create events w/ values
+        // Display event descriptions for all events
     }
 }
 
