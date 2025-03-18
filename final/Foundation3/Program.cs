@@ -7,28 +7,43 @@ class Program
     static void Main(string[] args)
     {
         // Create events w/ values
+        Lecture lecture1 = new Lecture("Designing Thrills in Digital Software", 
+        "A comprehensive look at how to use programs to structure ride layouts..", 
+        "May 5th, 2025", "5:00 PM",
+        "5315 Hemmingway Park", "Saltsville", "TN", "USA",
+        "Harmond Row", 1975);
+        _events.Add(lecture1);
+        Reception reception1 = new Reception("Homecoming of Elder Jacobsen", 
+        "Celebrate the completion of Elder Mark Jacobsen's mission with us!", 
+        "August 8th, 2025", "3:00 PM",
+        "Trotwood Park", "Oviedo", "FL", "USA",
+        "totallyarealemail@emailservice.com");
+        _events.Add(reception1);
+        Gathering gathering1 = new Gathering("165th Fantasy Meetup", 
+        "Fantasy fans of all types, gather together to play D&D and meet some new friends!", 
+        "August 8th, 2025", "3:00 PM",
+        "Central Ampitheater", "Liverpool", "L1 1AB", "UK",
+        "25% chance of rain; shelter will be provided.");
+        _events.Add(gathering1);
+
         // Display event descriptions for all events
+        foreach ( Event e in _events )
+        {
+            Console.WriteLine($"\n>>> EVENT NUMBER {_events.IndexOf(e) + 1} \n--- [ Standard Description ] ---");
+            e.DisplayStandard();
+            Console.WriteLine($"--- [ Full Description ] ---");
+            e.DisplayFull();
+            Console.WriteLine($"--- [ Short Description ] ---");
+            e.DisplayShort();
+            if ( _events.Count() == ( _events.IndexOf(e) + 1 ) )
+            {
+                Console.WriteLine();
+            }
+        }
     }
 }
 
-// They typically handle a few main types of events:
-//     Lectures, which have a speaker and have a limited capacity.
-//     Receptions, which require people to RSVP, or register, beforehand.
-//     Outdoor gatherings, which do not have a limit on attendees, but need to track the weather forecast.
-
-// Program Specification
-// Write a program that has a base Event class along with derived classes for each type of event.
-// These classes should contain the necessary data and provide methods to return strings
-// for each of the messages the company desires.
-// Remember that any data or methods that are common
-// among all types of events should be in the base class.
-// Once you have the classes in place,
-// write a program that creates at least one event of each type
+// Write a program that creates at least one event of each type
 // and sets all of their values.
 // Then, for event event, call each of the methods to generate the marketing messages
 // and output their results to the screen.
-
-// In addition, your program must:
-//     Use inheritance to avoid duplicating shared attributes and methods.
-//     Use an address class for the addresses.
-//     Follow the principles of encapsulation, making sure each member variable is private.

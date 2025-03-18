@@ -10,25 +10,26 @@ abstract class Event
     private Address _address;
 
     // Constructor declaration
-    public Event(string title, string desc, string date, string time, Address address)
+    public Event(string title, string desc, string date, string time, string streetAddress, string city, string state, string country)
     {
         _title = title;
         _desc = desc;
         _date = date;
         _time = time;
+        Address address = new Address(streetAddress, city, state, country);
         _address = address;
     }
 
     // Module declaration
     public void DisplayStandard()
     {
-        Console.WriteLine($"{_title}\n- {_desc}\n{_date} @ {_time} @ {_address.GetAddress()}");
+        Console.WriteLine($"{_title}\n{_desc}\n{_date}, {_time} @ {_address.GetAddress()}");
     }
 
     public void DisplayFull()
     {
         string eventType = GetEventType();
-        Console.WriteLine($"{_title}\n- {_desc}\nUpcoming {eventType}\n{_date} @ {_time} @ {_address.GetAddress()}");
+        Console.WriteLine($"{_title}\n{_desc}\nUpcoming {eventType} | {_date}, {_time}\n{_address.GetAddress()}");
         if ( (eventType == "Lecture") || (eventType == "Reception") || ( eventType == "Gathering" ))
         {
             this.DisplayAdditional();
@@ -40,12 +41,12 @@ abstract class Event
     public void DisplayShort()
     {
         string eventType = GetEventType();
-        Console.WriteLine($"{eventType} | {_title} | {_date} | {_date}");
+        Console.WriteLine($"{_title} | {eventType} on {_date}");
     }
 
     public string GetEventType()
     {
-        string eventType = GetEventType();
+        string eventType = "Event";
 
         if (this is Lecture)
         {

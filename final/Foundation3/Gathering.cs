@@ -6,7 +6,7 @@ class Gathering : Event
     private string _forecast;
 
     // Constructor declaration
-    public Gathering(string title, string desc, string date, string time, Address address, string forecast) : base(title, desc, date, time, address)
+    public Gathering(string title, string desc, string date, string time, string streetAddress, string city, string state, string country, string forecast) : base(title, desc, date, time, streetAddress, city, state, country)
     {
         _forecast = forecast;
     }
