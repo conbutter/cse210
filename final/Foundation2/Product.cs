@@ -22,4 +22,9 @@ class Product
     {
         return _pricePerUnit * _quantity;
     }
+
+    public int GetProductID()
+    {
+        return _productID;
+    }
 }

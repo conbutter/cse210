@@ -38,10 +38,20 @@ class Order
 
     public string GetPackingLabel()
     {
-        
+        string packingLabel = "";
+        packingLabel += _customer.GetName() + "\n";
+        foreach ( var product in _products )
+        {
+            packingLabel += "Product ID: " + product.GetProductID() + "\n";
+        }
+        return packingLabel;
+    }
+
+    public string GetShippingLabel()
+    {
+        string shippingLabel = "";
+        shippingLabel += _customer.GetName() + "\n";
+        shippingLabel += _customer.GetAddress();
+        return shippingLabel;
     }
 }
-
-// Can return a string for the packing label. Can return a string for the shipping label.
-// A packing label should list the name and product id of each product in the order.
-// A shipping label should list the name and address of the customer
