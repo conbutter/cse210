@@ -24,25 +24,35 @@ class Order
             totalCost += product.GetCost();
         }
 
-        // Determine shipping cost
-        if ( _customer.IsCustomerUSA() )
-        {
-            totalCost += 5;
-        } else {
-            totalCost += 35;
-        }
+        // Add shipping cost
+        totalCost += ShippingCost();
 
         // Return totalCost
         return totalCost;
     }
 
+    public int ShippingCost()
+    {
+        if ( _customer.IsCustomerUSA() )
+        {
+            return 5;
+        } else {
+            return 35;
+        }
+    }
+
     public string GetPackingLabel()
     {
         string packingLabel = "";
-        packingLabel += _customer.GetName() + "\n";
+        packingLabel += _customer.GetName() + " | Product IDs: ";
         foreach ( var product in _products )
         {
-            packingLabel += "Product ID: " + product.GetProductID() + "\n";
+            if ( _products.IndexOf(product) == _products.Count - 1) {
+                packingLabel += + product.GetProductID();
+            } else {
+                packingLabel += + product.GetProductID() + ", ";
+            }
+            
         }
         return packingLabel;
     }
@@ -50,7 +60,7 @@ class Order
     public string GetShippingLabel()
     {
         string shippingLabel = "";
-        shippingLabel += _customer.GetName() + "\n";
+        shippingLabel += _customer.GetName() + " | Address: ";
         shippingLabel += _customer.GetAddress();
         return shippingLabel;
     }

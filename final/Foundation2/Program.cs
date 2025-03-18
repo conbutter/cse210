@@ -2,21 +2,26 @@ using System;
 
 class Program
 {
+    private static List<Order> _orders = new List<Order>();
+
     static void Main(string[] args)
     {
-        List<Order> _orders = new List<Order>();
+        Console.Clear();
         CreateOrders();
         foreach ( Order order in _orders )
         {
-            // Display contents here
+            Console.WriteLine($"Order #{_orders.IndexOf(order) + 1}");
+            Console.WriteLine($"PACKING LABEL: {order.GetPackingLabel()}");
+            Console.WriteLine($"SHIPPING LABEL: {order.GetShippingLabel()}");
+            Console.WriteLine($"Total Order Cost: ${order.GetTotalCost()}\n");
         }
     }
 
     static void CreateOrders()
     {
         // Create customers w/ addresses
-        Customer customer1 = new Customer("Bob Hale", "593 London Parkway", "London", "NW1 6XE", "UK");
-        Customer customer2 = new Customer("Harmond Row", "1975 Tomorrow Way", "Tampa", "FL", "USA");
+        Customer customer1 = new Customer("Harmond Row", "1975 Tomorrow Way", "Tampa", "FL", "USA");
+        Customer customer2 = new Customer("Bob Hale", "593 London Parkway", "London", "NW1 6XE", "UK");
 
         // Create products
         Product product1 = new Product("Zorbeez", 100, 7, 30);
@@ -25,6 +30,11 @@ class Program
 
         // Create two orders
         Order order1 = new Order(customer1, new List<Product> { product1, product2 });
-        Order order2 = new Order(customer2, new List<Product> { product1, product3 });
+        _orders.Add(order1);
+        Order order2 = new Order(customer2, new List<Product> { product1, product2, product3 });
+        _orders.Add(order2);
     }
 }
+
+// Call the methods to get the packing label, the shipping label,
+// and the total price of the order, and display the results of these methods.
