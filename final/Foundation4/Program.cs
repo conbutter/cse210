@@ -2,25 +2,24 @@ using System;
 
 class Program
 {
+    private static List<Activity> _activities = new List<Activity>();
+
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Foundation4 World!");
+        // Creating activities
+        RunningActivity running1 = new RunningActivity("14 Jan 2025", 45, 2.0);
+        _activities.Add(running1);
+        CyclingActivity cycling1 = new CyclingActivity("15 Jan 2025", 30, 13.5);
+        _activities.Add(cycling1);
+        SwimmingActivity swimming1 = new SwimmingActivity("17 Jan 2025", 15, 4);
+        _activities.Add(swimming1);
+
+        foreach (Activity activity in _activities)
+        {
+            Console.WriteLine(activity.GetSummary());
+        }
     }
 }
-
-// The local fitness center has hired you to write an app
-// for their customers to track their exercise.
-// They have facilities for the following:
-//     Running
-//     Stationary Bicycles
-//     Swimming in the lap pool
-
-// For each activity, they want to track the the date
-// and the length of the activity in minutes.
-// Then, for each activity, they would like to also track the following:
-//     Running: distance
-//     Cycling: speed
-//     Swimming: number of laps
 
 // For each activity, they do not want to store this information,
 // but they would like to be able to get following information
@@ -34,30 +33,8 @@ class Program
 // You may choose if your program uses miles or kilometers (you do not need to handle both).
 // In either case the length of a lap in the lap pool is 50 meters.
 
-// Program Specification
-// Write a program that has a base Activity class
-// and then has a derived class for each of the three activities.
-// The base class should contain any attributes that are shared among all activities.
-// Then, each derived class can define any additional attributes.
-
-// In addition, the base class should contain virtual methods
-// for getting the distance, speed, pace.
-// These methods should be overridden in the derived classes.
-
-// Finally, you should provide a GetSummary method
-// to produce a string with all the summary information.
-// Remember that the summary method can make use of the other methods to produce its result.
-// This method should be available for all classes,
-// so it should be defined in the base class 
-// (you can override it in the derived classes if needed, but it may not need to be...).
-
 // Once you have the classes in place,
 // write a program that creates at least one activity of each type.
 // Put each of these activities in the same list.
 // Then iterate through this list and call the GetSummary method
 // on each item and display the results.
-
-// In addition, your program must:
-//     Use inheritance to avoid duplicating shared attributes and methods.
-//     Use method overriding for the calculation methods.
-//     Follow the principles of encapsulation, making sure each member variable is private.

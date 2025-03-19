@@ -29,6 +29,6 @@ class CyclingActivity : Activity
 
     public override string GetSummary()
     {
-        return $"{GetDate()} | Swimming ({GetLength()} minutes) - Distance {GetDistance()} miles, Speed {_speed} mph, Pace: {GetPace()} min per mile";
+        return $"{GetDate()} | Swimming ({GetLength()} minutes) - Distance {Math.Round(GetDistance(), 2)} miles, Speed {_speed} mph, Pace: {Math.Round(GetPace(), 2)} min per mile";
     }
 }
