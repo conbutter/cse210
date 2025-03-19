@@ -8,7 +8,7 @@ class Program
     }
 }
 
-//The local fitness center has hired you to write an app
+// The local fitness center has hired you to write an app
 // for their customers to track their exercise.
 // They have facilities for the following:
 //     Running
@@ -61,11 +61,3 @@ class Program
 //     Use inheritance to avoid duplicating shared attributes and methods.
 //     Use method overriding for the calculation methods.
 //     Follow the principles of encapsulation, making sure each member variable is private.
-
-// Math Hints:
-//     Distance (km) = swimming laps * 50 / 1000
-//     Distance (miles) = swimming laps * 50 / 1000 * 0.62
-//     Speed (mph or kph) = (distance / minutes) * 60
-//     Pace (min per mile or min per km)= minutes / distance
-//     Speed = 60 / pace
-//     Pace = 60 / speed
