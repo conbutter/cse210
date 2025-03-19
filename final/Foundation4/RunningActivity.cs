@@ -30,6 +30,6 @@ class RunningActivity : Activity
 
     public override string GetSummary()
     {
-        return $"{GetDate()} | Running () - Distance {_distance} miles, Speed {GetSpeed()} mph, Pace: {GetPace()} min per mile";
+        return $"{GetDate()} | Running ({GetLength()} mins) - Distance {_distance} miles, Speed {GetSpeed()} mph, Pace: {GetPace()} min per mile";
     }
 }
