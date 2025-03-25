@@ -30,20 +30,24 @@ class Program
         Comment comment4 = new Comment("Mr Worldwide", "Mr Worldwide approves of this.");
         Comment comment5 = new Comment("Alexander", "I adore this. I will share it with my coworkers.");
         Comment comment6 = new Comment("Misty", "<3");
+        Comment comment6a = new Comment("Strange", "idek");
         video2.AddComment(comment4);
         video2.AddComment(comment5);
         video2.AddComment(comment6);
+        video2.AddComment(comment6a);
 
         Comment comment7 = new Comment("Greenzilla", "That was EPIC!");
         Comment comment8 = new Comment("1000 SUBS NO VIDS", "Some say he's still dancing to this day.");
         Comment comment9 = new Comment("Google Plus 2", "I am Google Plus 2.");
+        Comment comment9a = new Comment("DO NOT CLICK ON MY ACCOUNT", "that's cool");
         video3.AddComment(comment7);
         video3.AddComment(comment8);
         video3.AddComment(comment9);
+        video3.AddComment(comment9a);
 
         Comment comment10 = new Comment("LinuxJunkie", "what");
         Comment comment11 = new Comment("Web", "Weird to think it's been 10 years since this was unleashed upon the world");
-        Comment comment12 = new Comment("73909187549813", "i like video its fun");
+        Comment comment12 = new Comment("11575", "i like video its fun");
         video4.AddComment(comment10);
         video4.AddComment(comment11);
         video4.AddComment(comment12);

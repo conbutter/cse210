@@ -20,7 +20,8 @@ class Video
     // Module declaration
     public void Display()
     {
-        Console.WriteLine($"\n{_title} | by {_author} | {_length} seconds\nComments:");
+        int commentCount = _comments.Count();
+        Console.WriteLine($"\n{_title} | by {_author} | {_length} seconds\nComments: {commentCount}");
         foreach ( Comment comment in _comments )
         {
             comment.Display();
