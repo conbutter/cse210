@@ -30,7 +30,6 @@ class Customer
         return _address.GetAddress();
     }
 
-
     public string GetName()
     {
         return _name;
